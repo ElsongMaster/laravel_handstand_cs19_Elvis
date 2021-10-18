@@ -12,12 +12,13 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/tailwind.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
 
         <!-- Scripts -->
         <script src="{{ asset('js/tailwind.js') }}" defer></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans antialiased w-screen ">
+        <div class=" bg-gray-100 m-0">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
@@ -28,7 +29,7 @@
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="w-full">
                 {{ $slot }}
             </main>
         </div>

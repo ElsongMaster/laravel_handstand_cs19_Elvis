@@ -20,6 +20,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_id',
+        'package_id',
         'password',
     ];
 
@@ -41,4 +43,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role(){
+        
+        return $this->belongsTo(Role::class);
+    }
+    public function package(){
+        
+        return $this->belongsTo(Package::class);
+    }
+
+
+    public function coach(){
+        return $this->hasOne(Coach::class);
+    }
+
+    public function classes(){
+        return $this->belongsToMany(Classe::class,'pivot_classe_user','user_id','classe_id');
+    }
+
 }
