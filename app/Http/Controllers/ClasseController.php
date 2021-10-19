@@ -20,6 +20,7 @@ class ClasseController extends Controller
     public function index()
     {
         $classes = Classe::orderBy('prioritaire','DESC')->get();
+        // currentDate = 
 
         return view('back.pages.home-page.sections.classe.allClasse',compact('classes'));
 
@@ -161,8 +162,14 @@ class ClasseController extends Controller
      */
     public function destroy(Classe $class)
     {
-        Storage::disk('public')->delete('img/class/'.$class->image);
+        // Storage::disk('public')->delete('img/class/'.$class->image);
         $class->delete();
+        foreach(ClasseTag::all() as $item){
+            if($class->id === $item->classe_id){
+
+                $item->delete();
+            }
+        }
         return redirect()->back()->with('success','Element correctement supprimer');;
     }
 
