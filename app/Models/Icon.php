@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Package extends Model
+class Icon extends Model
 {
     use HasFactory;
 
-
-    public function classe(){
-        return $this->belongsTo(Classe::class);
+    //une icone appartient à un lien social
+    public function linksocials(){
+        return $this->hasMany(Linksocial::class);
     }
 }

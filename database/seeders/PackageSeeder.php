@@ -16,7 +16,8 @@ class PackageSeeder extends Seeder
     {
         DB::table('packages')->insert([
             [
-                "nom"=>"silver package",
+                "nom"=>"Silver",
+                "titre"=>"silver package",
                 "prix"=>"$30",
                 "frequence"=>"month",
                 "li1"=>"Free T-Shirt & swags",
@@ -26,7 +27,8 @@ class PackageSeeder extends Seeder
                 "btn"=>"get started",
             ],
             [
-                "nom"=>"gold package",
+                "nom"=>"Gold",
+                "titre"=>"gold package",
                 "prix"=>"$50",
                 "frequence"=>"month",
                 "li1"=>"Free T-Shirt & swags",
@@ -36,7 +38,8 @@ class PackageSeeder extends Seeder
                 "btn"=>"get started",
             ],
             [
-                "nom"=>"silver package",
+                "nom"=>"Platinium",
+                "titre"=>"platinium package",
                 "prix"=>"$70",
                 "frequence"=>"month",
                 "li1"=>"Free T-Shirt & swags",

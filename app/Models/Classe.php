@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Classe extends Model
 {
     use HasFactory;
-
+    protected $casts = [
+        "package" => "array"
+    ];
 
     public function categorie(){
         return $this->belongsTo(Categorie::class);
@@ -23,6 +25,10 @@ class Classe extends Model
 
     public function users(){
         return $this->belongsToMany(User::class,'pivot_classe_user','classe_id','user_id');
+    }
+
+    public function package(){
+        return $this->hasOne(Package::class);
     }
 
 

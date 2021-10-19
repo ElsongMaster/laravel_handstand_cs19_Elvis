@@ -15,7 +15,7 @@
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="single-table text-center">
                             <div class="table-head">
-                                <h2>{{$package->nom}}</h2>
+                                <h2>{{$package->titre}}</h2>
                                 <h1>{{$package->prix}}<span>/{{$package->frequence}}</span></h1>
                             </div>
                             <div class="table-body">

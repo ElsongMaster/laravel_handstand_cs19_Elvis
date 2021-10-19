@@ -7,6 +7,7 @@ use App\Models\Classe;
 use App\Models\ClasseTag;
 use App\Models\ClasseUser;
 use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -180,13 +181,44 @@ class ClasseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function inscription($classeId, $userId){
-        $newInscritpion = new ClasseUser;
-        $newInscritpion->classe_id = $classeId;
-        $newInscritpion->user_id = $userId;
+        $msg= "Inscription impossible vous êtes déjà inscrit à cette classe";
+        $tagMsg = 'error';
+        $userConnected = User::find($userId);
+        $currentClasseIdsUser = [];
+        foreach($userConnected->classes as $classe){
+            array_push($currentClasseIdsUser, $classe->id);
+        }
+        // dd($currentClasseIdsUser);
+        if($userConnected->role->nom ==='user'){
 
-        $newInscritpion->save();
+            if(!in_array($classeId,$currentClasseIdsUser)){
+                $classeToSubscribe= Classe::find($classeId);
+                // dd($classeToSubscribe->package);
+                if(in_array($userConnected->package->nom, $classeToSubscribe->package)){
+                    if($classeToSubscribe->users->count()<15){
 
-        return redirect()->back()->with('success','Votre inscription à bien été enregistrer');
+                        $newInscritpion = new ClasseUser;
+                        $newInscritpion->classe_id = $classeId;
+                        $newInscritpion->user_id = $userId;
+        
+                        $newInscritpion->save();    
+                        $msg= "Votre inscription à bien été enregistrer";
+                        $tagMsg = 'success';
+                    }else{
+                        $msg= "Inscription impossible,  le nombre maximum de personne pouvant s'incrire dans cette classe a été atteint";
+                        $tagMsg = 'error';  
+                    }
+                }else{
+                    $nomPackage = implode(' ou ',$classeToSubscribe->package);
+                    $msg= "Inscription impossible,  vous devez possédez le package $nomPackage pour vous inscrire à cette classe";
+                    $tagMsg = 'error';     
+                }
+            }
+        }else{
+                    $msg= "Inscription impossible, seul les utilisateurs dont le role est 'user' peuvent s'inscrire ";
+                    $tagMsg = 'error';             
+        }
+        return redirect()->back()->with($tagMsg,$msg);
         
 
 

@@ -18,15 +18,17 @@ class ClasseSeeder extends Seeder
             [
                 "image"=>"1.jpg",
                 "nom"=>"yoga for climbers",
+                "package"=>json_encode(['Platinium']),
                 "coach_id"=>1,
                 "horaire"=>"10.00Am-05:00Pm",
                 "categorie_id"=>3,
                 "prioritaire"=>true,
-                "date"=>date_create("2021-10-23"),
+                "date"=>date_create("2021-10-22"),
             ],
             [
                 "image"=>"2.jpg",
                 "nom"=>"yoga for climbers",
+                "package"=>json_encode(['Platinium','Gold']),
                 "coach_id"=>1,
                 "horaire"=>"10.00Am-05:00Pm",
                 "categorie_id"=>2,
@@ -36,6 +38,7 @@ class ClasseSeeder extends Seeder
             [
                 "image"=>"3.jpg",
                 "nom"=>"yoga for climbers",
+                "package"=>json_encode(['Platinium','Gold','Silver']),
                 "coach_id"=>1,
                 "horaire"=>"10.00Am-05:00Pm",
                 "categorie_id"=>2,

@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             ClasseTagSeeder::class,
             ClasseUserSeeder::class,
+            IconSeeder::class,
+            LinksocialSeeder::class,
 
         ]);
         \App\Models\User::factory(35)->create();
