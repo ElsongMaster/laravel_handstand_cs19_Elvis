@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Coach;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class CoachController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,18 +14,7 @@ class CoachController extends Controller
      */
     public function index()
     {
-        $coaches = Coach::all();
-        $coachLead = "";
-
-        foreach($coaches as $coach){
-            if($coach->user->role->nom === "coach_lead" ){
-                $coachLead = $coach;
-            }
-        }
-        $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(3)->inRandomOrder()->get();
-        // dd($coachesWithoutLead);
-
-        return view('back.pages.home-page.sections.tainer.allTrainer',compact('coaches','coachLead','coachesWithoutLead'));
+        //
     }
 
     /**
@@ -35,8 +24,7 @@ class CoachController extends Controller
      */
     public function create()
     {
-        return view('back.pages.home-page.sections.tainer.create');
-        
+        //
     }
 
     /**
@@ -53,34 +41,33 @@ class CoachController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Coach  $coach
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Coach $coach)
+    public function show(User $user)
     {
-        return view('back.pages.home-page.sections.tainer.show', compact('coach'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Coach  $coach
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Coach $coach)
+    public function edit(User $user)
     {
-        return view('back.pages.home-page.sections.tainer.edit', compact('coach'));
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Coach  $coach
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Coach $coach)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -88,10 +75,10 @@ class CoachController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Coach  $coach
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Coach $coach)
+    public function destroy(User $user)
     {
         //
     }

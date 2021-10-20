@@ -6,6 +6,8 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\TitreController;
 use App\Http\Controllers\CoachController;
+use App\Http\Controllers\LinksocialController;
+use App\Http\Controllers\UserController;
 use App\Models\Header;
 use Illuminate\Support\Facades\Route;
 
@@ -57,4 +59,7 @@ Route::post('sliders/updateSelected', [SliderController::class,'updateSelected']
 Route::resource('headers', HeaderController::class);
 Route::resource('titres', TitreController::class);
 Route::resource('coaches', CoachController::class);
+Route::resource('linksocials', LinksocialController::class);
+Route::post('linksocials/{linksocial}/{coachId}', [LinksocialController::class,'updateLink'])->name('updateLink');
+Route::resource('users', UserController::class);
 require __DIR__.'/auth.php';

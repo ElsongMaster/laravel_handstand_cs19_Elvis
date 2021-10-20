@@ -17,19 +17,19 @@ class IconSeeder extends Seeder
         DB::table('icons')->insert([
             [
                 "nom"=>"facebook",
-                "nomClass"=>"fab fa-facebook",
+                "nomClass"=>"fa fa-facebook",
             ],
             [
                 "nom"=>"twitter",
-                "nomClass"=>"fab fa-twitter",
+                "nomClass"=>"fa fa-twitter",
             ],
             [
                 "nom"=>"dribbble",
-                "nomClass"=>"fab fa-dribbble",
+                "nomClass"=>"fa fa-dribbble",
             ],
             [
                 "nom"=>"dribbble",
-                "nomClass"=>"fab fa-pinterest",
+                "nomClass"=>"fa fa-pinterest",
             ],
         ]);
     }

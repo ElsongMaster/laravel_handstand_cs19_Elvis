@@ -17,7 +17,6 @@
 
 
         <div class="d-flex flex-wrap ">
-            {{-- {{dd($coaches->count())}} --}}
             @for ($i=0;$i<$coaches->count();$i++)
                 @if ($i === 1)
                 <div class="card m-3" style="width: 18rem;">
@@ -41,18 +40,15 @@
                     </div>
                 </div>   
             @else
-            {{-- {{dd($i>0?$i-1:$i)}} --}}
                 
             <div class="card m-3" style="width: 18rem;">
                 <img src="{{asset('img/trainer/'.$coachesWithoutLead[$i>0?$i-1:$i]->image)}}" class="card-img-top" alt="...">
 
                 <div class="card-body">
                     <h5 class="card-title">Nom: <span class="text-info">{{$coachesWithoutLead[$i>0?$i-1:$i]->user->name}}</span></h5>
-                        {{-- {{dd($coach->linksocials)}} --}}
                         <h5 class="card-title">
                             <div class=" d-flex justify-content-between w-75 my-3" >
                              @foreach ($coachesWithoutLead[$i>0?$i-1:$i]->linksocials as $link )
-                                 {{-- {{dd($link->icon->nomClass)}} --}}
                                 <a class="btn btn-info text-light" href="{{$link->lien}}"><i class="{{$link->icon->nomClass}}"></i></a> 
                              @endforeach
                             </div> 

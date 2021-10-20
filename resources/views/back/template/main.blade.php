@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/tailwind.css')}}">
+    <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
+
     <link href="{{asset('vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
 	{{-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> --}}
 	{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

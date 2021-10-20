@@ -12,8 +12,8 @@
                 <div class="row"> 
                     @foreach ($classes as $classe)
                         
-                    <div class="col-md-4 col-sm-6 col-xs-12">     
-                        <div class="single-class">
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">     
+                        <div class="single-class {{$classe->prioritaire?'bg-success':''}} {{(!$classe->prioritaire) &&in_array((\Carbon\Carbon::createFromFormat('Y-m-d', $classe->date)->diffInDays(now())),[1,2,3] )  || (15-$classe->users->count())==5?'bg-orange':'' }} {{(!$classe->prioritaire) &&$classe->users->count()===15 ||$classe->date<now()->format('Y-m-d')?'bg-danger':''}} ">
                             <div class="single-img">
                                 <a href="{{asset('class')}}"><img src="{{asset('img/class/'.$classe->image)}}" alt="class"></a>
                                 <div class="gallery-icon">
@@ -22,7 +22,7 @@
                                     </a>   
                                 </div>
                             </div>
-                            <div class="single-content">
+                            <div class="single-content  " style={{$classe->prioritaire?"background-color:green;":''}} {{(!$classe->prioritaire) &&in_array((\Carbon\Carbon::createFromFormat('Y-m-d', $classe->date)->diffInDays(now())),[1,2,3] )  || (15-$classe->users->count())==5?"background-color:orange;":'' }} {{(!$classe->prioritaire) &&$classe->users->count()===15 ||$classe->date<now()->format('Y-m-d')?"background-color:red;":''}} >
                                 <h3><a href="{{route('class')}}">{{$classe->nom}}</a></h3>
                                 <ul>
                                     <li><i class="zmdi zmdi-face"></i>{{$classe->coach->user->name}}</li>
