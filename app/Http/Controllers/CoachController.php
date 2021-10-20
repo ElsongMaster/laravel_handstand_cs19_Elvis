@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Coach;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CoachController extends Controller
 {
@@ -15,17 +16,9 @@ class CoachController extends Controller
     public function index()
     {
         $coaches = Coach::all();
-        $coachLead = "";
 
-        foreach($coaches as $coach){
-            if($coach->user->role->nom === "coach_lead" ){
-                $coachLead = $coach;
-            }
-        }
-        $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(3)->inRandomOrder()->get();
-        // dd($coachesWithoutLead);
 
-        return view('back.pages.home-page.sections.tainer.allTrainer',compact('coaches','coachLead','coachesWithoutLead'));
+        return view('back.pages.home-page.sections.tainer.allTrainer',compact('coaches'));
     }
 
     /**
@@ -82,7 +75,18 @@ class CoachController extends Controller
      */
     public function update(Request $request, Coach $coach)
     {
-        //
+        $request->validate([
+            "image"=>['required'],
+
+        ]);
+    
+        
+        // Storage::disk('public')->delete('img/trainer/'.$coach->image);
+        $coach->image = $request->file('image')->hashName();
+        $request->file('image')->storePublicly('img/trainer/', 'public');
+        $coach->save();
+
+        return redirect()->back()->with('success','les données relative au coach ont bien été mise à jour');
     }
 
     /**
@@ -93,6 +97,12 @@ class CoachController extends Controller
      */
     public function destroy(Coach $coach)
     {
-        //
+
+        foreach($coach->linksocials as $linksocial){
+            $linksocial->delete();
+        }
+        $coach->delete();
+
+        return redirect()->back()->with('success','le coach à bien été supprimer');
     }
 }

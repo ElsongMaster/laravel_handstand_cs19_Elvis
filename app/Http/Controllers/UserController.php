@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -14,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -69,7 +70,21 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            "name"=>['required'],
+            "email"=>['required'],
+            "password"=>['required'],
+
+        ]);
+    
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+
+        $user->save();
+
+        return redirect()->back()->with('success','les données personnelles ont bien été mise à jour');
     }
 
     /**
@@ -80,6 +95,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        
     }
 }

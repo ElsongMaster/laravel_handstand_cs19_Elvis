@@ -9,7 +9,10 @@
 
 @section('backContent')
 <div class="container d-flex flex-column  mb-2 w-75">
+    <div class="d-flex justify-content-center my-5">
 
+        <a href="{{route('coaches.index')}}" class="btn btn-secondary">Retour à la liste des coaches</a>
+    </div>
 @if ($errors->any())
 <div class="alert alert-danger">
     <ul>

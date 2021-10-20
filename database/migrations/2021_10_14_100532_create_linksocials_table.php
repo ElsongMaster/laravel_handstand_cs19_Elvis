@@ -19,6 +19,9 @@ class CreateLinksocialsTable extends Migration
             $table->foreignId('coach_id')->constrained('coaches','id');
             $table->foreignId('icon_id')->constrained('icons','id');
             $table->timestamps();
+
+            $table->dropForeign(['coach_id']);
+            $table->dropForeign(['icon_id']);
         });
     }
 

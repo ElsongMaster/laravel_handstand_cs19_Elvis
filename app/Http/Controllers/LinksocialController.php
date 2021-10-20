@@ -84,7 +84,7 @@ class LinksocialController extends Controller
 
         $linksocial->save();
 
-        return redirect()->route('coaches.edit',$coachId)->with('success',"Le lien à bien été modifié");
+        return redirect()->back();
 
     }
     /**
@@ -120,6 +120,6 @@ class LinksocialController extends Controller
      */
     public function destroy(Linksocial $linksocial)
     {
-        //
+
     }
 }

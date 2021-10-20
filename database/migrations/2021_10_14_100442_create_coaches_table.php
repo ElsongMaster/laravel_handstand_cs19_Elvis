@@ -16,7 +16,7 @@ class CreateCoachesTable extends Migration
         Schema::create('coaches', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->foreignId("user_id")->constrained('users','id');
+            $table->foreignId("user_id")->constrained('users','id')->onDelete('cascade');
             $table->timestamps();
         });
     }
