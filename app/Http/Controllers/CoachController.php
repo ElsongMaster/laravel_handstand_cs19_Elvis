@@ -22,7 +22,8 @@ class CoachController extends Controller
                 $coachLead = $coach;
             }
         }
-        $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->inRandomOrder()->get();
+        $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(3)->inRandomOrder()->get();
+        // dd($coachesWithoutLead);
 
         return view('back.pages.home-page.sections.tainer.allTrainer',compact('coaches','coachLead','coachesWithoutLead'));
     }
