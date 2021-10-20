@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\TitreController;
+use App\Http\Controllers\CoachController;
 use App\Models\Header;
 use Illuminate\Support\Facades\Route;
 
@@ -55,4 +56,5 @@ Route::post('classes/{classeId}/{userId}/désinscription',[ClasseController::cla
 Route::post('sliders/updateSelected', [SliderController::class,'updateSelected'])->name('update2');
 Route::resource('headers', HeaderController::class);
 Route::resource('titres', TitreController::class);
+Route::resource('coaches', CoachController::class);
 require __DIR__.'/auth.php';

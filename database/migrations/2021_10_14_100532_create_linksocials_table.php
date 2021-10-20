@@ -16,7 +16,7 @@ class CreateLinksocialsTable extends Migration
         Schema::create('linksocials', function (Blueprint $table) {
             $table->id();
             $table->string('lien');
-            $table->string('coach_id')->constrained('coachs','id');
+            $table->foreignId('coach_id')->constrained('coaches','id');
             $table->foreignId('icon_id')->constrained('icons','id');
             $table->timestamps();
         });

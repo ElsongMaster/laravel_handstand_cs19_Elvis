@@ -14,7 +14,17 @@ class CoachController extends Controller
      */
     public function index()
     {
-        //
+        $coaches = Coach::all();
+        $coachLead = "";
+
+        foreach($coaches as $coach){
+            if($coach->user->role->nom === "coach_lead" ){
+                $coachLead = $coach;
+            }
+        }
+        $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->inRandomOrder()->get();
+
+        return view('back.pages.home-page.sections.tainer.allTrainer',compact('coaches','coachLead','coachesWithoutLead'));
     }
 
     /**
@@ -24,7 +34,8 @@ class CoachController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.pages.home-page.sections.tainer.create');
+        
     }
 
     /**

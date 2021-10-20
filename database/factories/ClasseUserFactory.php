@@ -19,7 +19,7 @@ class ClasseUserFactory extends Factory
      *
      * @return array
      */
-    protected $i=5;
+    protected $i=8;
     public function definition()
     {
 

@@ -17,7 +17,16 @@ class CoachSeeder extends Seeder
     
         DB::table('coaches')->insert([
             [
-                "user_id"=>5,
+                "image"=>"trainer1.jpg",
+                "user_id"=>6,
+            ],
+            [
+                "image"=>"trainer2.jpg",
+                "user_id"=>7,
+            ],
+            [
+                "image"=>"trainer3.jpg",
+                "user_id"=>8,
             ],
         ]);
     }

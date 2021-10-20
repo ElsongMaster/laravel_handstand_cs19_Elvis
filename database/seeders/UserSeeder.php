@@ -63,6 +63,30 @@ class UserSeeder extends Seeder
             'package_id'=>null,
             'password' =>Hash::make('test'),
             ],
+            [
+            'name' => 'John laisa do',
+            'email' =>'Johnlaisa1@gmail.com',
+            'email_verified_at' => now(),
+            'role_id'=>3,
+            'package_id'=>null,
+            'password' =>Hash::make('test'),
+            ],
+            [
+            'name' => 'John laisa do',
+            'email' =>'Johnlaisa2@gmail.com',
+            'email_verified_at' => now(),
+            'role_id'=>2,
+            'package_id'=>null,
+            'password' =>Hash::make('test'),
+            ],
+            [
+            'name' => 'John laisa do',
+            'email' =>'Johnlaisa3@gmail.com',
+            'email_verified_at' => now(),
+            'role_id'=>3,
+            'package_id'=>null,
+            'password' =>Hash::make('test'),
+            ],
         ]);
     }
 }

@@ -188,12 +188,12 @@ class ClasseController extends Controller
         foreach($userConnected->classes as $classe){
             array_push($currentClasseIdsUser, $classe->id);
         }
-        // dd($currentClasseIdsUser);
+
         if($userConnected->role->nom ==='user'){
 
             if(!in_array($classeId,$currentClasseIdsUser)){
                 $classeToSubscribe= Classe::find($classeId);
-                // dd($classeToSubscribe->package);
+
                 if(in_array($userConnected->package->nom, $classeToSubscribe->package)){
                     if($classeToSubscribe->users->count()<15){
 
@@ -215,7 +215,7 @@ class ClasseController extends Controller
                 }
             }
         }else{
-                    $msg= "Inscription impossible, seul les utilisateurs dont le role est 'user' peuvent s'inscrire ";
+                    $msg= "Inscription impossible, seul les utilisateurs dont le rôle est 'user' peuvent s'inscrire ";
                     $tagMsg = 'error';             
         }
         return redirect()->back()->with($tagMsg,$msg);
