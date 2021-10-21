@@ -19,7 +19,7 @@
         <div class="d-flex flex-wrap ">
             @foreach ($classes as $classe )
                    {{-- {{dd($classe->users->count()-15)}}  --}}
-                <div class="card m-3 {{$classe->prioritaire?'bg-success':''}} {{(!$classe->prioritaire) &&in_array((\Carbon\Carbon::createFromFormat('Y-m-d', $classe->date)->diffInDays(now())),[1,2,3] )  || (15-$classe->users->count())==5?'bg-orange':'' }} {{(!$classe->prioritaire) &&$classe->users->count()===15 ||$classe->date<now()->format('Y-m-d')?'bg-danger':''}} " style="width: 18rem;">
+                <div class="card m-3 {{$classe->color ==="green"?'green':''}} {{$classe->color ==="orange"?'orange':''}} {{$classe->color ==="green"?'green':''}} {{$classe->color ==="red"?'red':''}} " style="width: 18rem;">
                     <img src="{{asset('img/class/'.$classe->image)}}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">Nom: <span class="  {{$classe->prioritaire?'text-light':'text-info'}}">{{$classe->nom}}</span></h5>

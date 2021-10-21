@@ -8,6 +8,8 @@ use App\Http\Controllers\TitreController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\LinksocialController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GallerieController;
+use App\Http\Controllers\TestimonyController;
 use App\Models\Header;
 use Illuminate\Support\Facades\Route;
 
@@ -36,11 +38,14 @@ Route::get('/class', function () {
     return view('front.pages.class',compact('header'));
 })->name('class');
 Route::get('/contact', function () {
+    $header = Header::first();
     return view('front.pages.contact');
 })->name('contact');
 
 Route::get('/gallery', function () {
+    $header = Header::first();
     return view('front.pages.gallery');
+
 })->name('gallery');
 Route::get('/back', function () {
     return view('back.pages.homeBack');
@@ -62,4 +67,6 @@ Route::resource('coaches', CoachController::class);
 Route::resource('linksocials', LinksocialController::class);
 Route::post('linksocials/{linksocial}/{coachId}', [LinksocialController::class,'updateLink'])->name('updateLink');
 Route::resource('users', UserController::class);
+Route::resource('galleries', GallerieController::class);
+Route::resource('testimonies', TestimonyController::class);
 require __DIR__.'/auth.php';

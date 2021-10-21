@@ -8,6 +8,7 @@ use App\Models\ClasseTag;
 use App\Models\ClasseUser;
 use App\Models\Tag;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,9 +21,20 @@ class ClasseController extends Controller
      */
     public function index()
     {
-        $classes = Classe::orderBy('prioritaire','DESC')->get();
-        // currentDate = 
+        foreach(Classe::all() as $class){
+            // dd($class);
+            if($class->prioritaire === 1){
+                $class->color= "green";
+            }elseif((!$class->users->count()===15) && in_array((Carbon::createFromFormat('Y-m-d', $class->date)->diffInDays(now())),[1,2,3] ) ||(15-$class->users->count()===5)){
+                $class->color= "orange";
+            }elseif($class->users->count()===15 ||$class->date<now()->format('Y-m-d')){
+                $class->color= "red";
 
+            }
+            $class->save();
+        }
+
+        $classes = Classe::orderByRaw("FIELD(color , 'green', 'orange', 'red') ASC")->get();
         return view('back.pages.home-page.sections.classe.allClasse',compact('classes'));
 
     }
@@ -61,7 +73,10 @@ class ClasseController extends Controller
         $classe->coach_id = $request->coach_id;
         $classe->horaire = $request->horaire;
         $classe->categorie_id = $request->categorie_id;
-        $classe->effectif = $request->effectif;
+        $classe->prioritaire = $request->prioritaire;
+        if($request->prioritaire === 1){
+             $classe->color= "green";
+        }
         $classe->date = $request->date;
         $classe->save();
 
@@ -143,11 +158,19 @@ class ClasseController extends Controller
             $elt->save();
 
         }
-
+        
         $class->nom = $request->nom;
         $class->coach_id = $request->coach_id;
         $class->horaire = $request->horaire;
         $class->prioritaire = $request->prioritaire;
+        if($request->prioritaire === 1){
+             $class->color= "green";
+        }elseif(in_array((Carbon::createFromFormat('Y-m-d', $class->date)->diffInDays(now())),[1,2,3] ) || (15-$class->users->count()===5) ){
+            $class->color= "orange";
+        }elseif($class->users->count()===15 ||$class->date<now()->format('Y-m-d')){
+            $class->color= "red";
+
+        }
         $class->categorie_id = $request->categorie_id;
         $class->date = $request->date;
         $class->save();
@@ -204,6 +227,13 @@ class ClasseController extends Controller
                         $newInscritpion->save();    
                         $msg= "Votre inscription à bien été enregistrer";
                         $tagMsg = 'success';
+                        if((!$classeToSubscribe->prioritaire)&&(15-$classeToSubscribe->users->count()===5) ){
+                            $classeToSubscribe->color = "orange";
+                            $classeToSubscribe->save();
+                        }elseif((!$classeToSubscribe->prioritaire)&&($classeToSubscribe->users->count()===15) ){
+                             $classeToSubscribe->color = "red";
+                            $classeToSubscribe->save();                           
+                        }
                     }else{
                         $msg= "Inscription impossible,  le nombre maximum de personne pouvant s'incrire dans cette classe a été atteint";
                         $tagMsg = 'error';  

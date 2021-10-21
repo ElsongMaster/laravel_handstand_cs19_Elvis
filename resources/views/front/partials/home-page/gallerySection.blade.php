@@ -14,17 +14,20 @@
                 </div>
                 <div class="row">
                     <div class="grid" style="position: relative; height: 390px;">
-                        <div class="col-md-4 col-sm-4 col-xs-12 grid-item cat1 cat3" style="position: absolute; left: 0%; top: 0px;">
+                        @foreach ($galleries as $item )
+                            
+                        <div class="col-md-4 col-sm-4 col-xs-12 grid-item {{$item->class}}" style="position: absolute;{{$item->position}}">
                             <div class="portfolio-img single-img">
-                                <img src="{{asset('img/portfolio/gal.jpg')}}" alt="project">
+                                <img src="{{asset('img/portfolio/'.$item->image)}}" alt="project">
                                 <div class="gallery-icon">
-                                    <a class="image-popup" href="{{asset('img/portfolio/gal.jpg')}}">
+                                    <a class="image-popup" href="{{asset('img/portfolio/'.$item->image)}}">
                                         <i class="zmdi zmdi-zoom-in"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12 grid-item cat2 cat4" style="position: absolute; left: 25%; top: 0px;">
+                        @endforeach
+                        {{-- <div class="col-md-4 col-sm-4 col-xs-12 grid-item cat2 cat4" style="position: absolute; left: 25%; top: 0px;">
                             <div class="portfolio-img single-img">
                                 <img src="{{asset('img/portfolio/gal2.jpg')}}" alt="project">
                                 <div class="gallery-icon">
@@ -73,7 +76,7 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

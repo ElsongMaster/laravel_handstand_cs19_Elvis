@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\About;
 use App\Models\Classe;
 use App\Models\Coach;
+use App\Models\Event;
+use App\Models\Gallerie;
 use App\Models\Header;
 use App\Models\Package;
 use App\Models\Slider;
+use App\Models\Testimony;
 use App\Models\Titre;
 use Illuminate\Http\Request;
 
@@ -30,16 +33,25 @@ class HomeController extends Controller
         $packages = Package::all();
         $classes = Classe::orderBy('prioritaire','DESC')->get();
         $coaches = Coach::all();
-        $coachLead = "";
-        
+        $coachLead = null;
+        $galleries = Gallerie::take(6)->inRandomOrder()->get();
+        $event = Event::first();
+        $testimonies = Testimony::all();
+        // dd($event);
 
         foreach($coaches as $coach){
             if($coach->user->role->nom === "coach_lead" ){
                 $coachLead = $coach;
             }
         }
-        $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(3)->inRandomOrder()->get();
+        if($coachLead !== null){
+            // dd($coachLead);
+            $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(2)->inRandomOrder()->get();
+            // dd($coachesWithoutLead->count());
+        }else{
+           $coachesWithoutLead = $coaches; 
+        }
         $count = 1;
-        return view('front.pages.home',compact('header','sliders','about','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count'));
+        return view('front.pages.home',compact('header','sliders','about','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count','galleries','event','testimonies'));
     }
 }

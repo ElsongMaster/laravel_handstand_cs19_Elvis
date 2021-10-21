@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
             ClasseUserSeeder::class,
             IconSeeder::class,
             LinksocialSeeder::class,
+            GallerieSeeder::class,
+            EventSeeder::class,
+            TestimonySeeder::class,
 
         ]);
         \App\Models\User::factory(35)->create();

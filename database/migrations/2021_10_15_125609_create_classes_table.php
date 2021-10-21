@@ -22,6 +22,7 @@ class CreateClassesTable extends Migration
             $table->string('horaire');
             $table->foreignId('categorie_id')->constrained('categories','id')->onDelete('cascade');
             $table->boolean('prioritaire');
+            $table->string('color')->nullable();
             $table->date('date');
 
 

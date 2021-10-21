@@ -23,6 +23,7 @@ class ClasseSeeder extends Seeder
                 "horaire"=>"10.00Am-05:00Pm",
                 "categorie_id"=>3,
                 "prioritaire"=>true,
+                "color"=>null,
                 "date"=>date_create("2021-10-22"),
             ],
             [
@@ -33,6 +34,7 @@ class ClasseSeeder extends Seeder
                 "horaire"=>"10.00Am-05:00Pm",
                 "categorie_id"=>2,
                 "prioritaire"=>true,
+                "color"=>null,
                 "date"=>date_create("2021-10-20"),
             ],
             [
@@ -43,6 +45,7 @@ class ClasseSeeder extends Seeder
                 "horaire"=>"10.00Am-05:00Pm",
                 "categorie_id"=>2,
                 "prioritaire"=>true,
+                "color"=>null,
                 "date"=>date_create("2021-10-23"),
             ],
             
