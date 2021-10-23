@@ -47,6 +47,8 @@
     content: "";
 }
 
+
+
 .green {
     background-color: rgb(60, 139, 60) !important;
 }
@@ -59,9 +61,9 @@
     background-color: rgb(167, 80, 80) !important;
 }
 
-.green  *,
-.red  *,
-.orange  * {
+.green *,
+.red *,
+.orange * {
     color: white !important;
 }
 

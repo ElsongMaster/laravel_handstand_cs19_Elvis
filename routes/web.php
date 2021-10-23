@@ -10,6 +10,7 @@ use App\Http\Controllers\LinksocialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GallerieController;
 use App\Http\Controllers\TestimonyController;
+use App\Http\Controllers\PackageController;
 use App\Models\Header;
 use Illuminate\Support\Facades\Route;
 
@@ -51,9 +52,18 @@ Route::get('/back', function () {
     return view('back.pages.homeBack');
 })->name('back');
 
+Route::get('/back', function () {
+    return view('back.pages.homeBack');
+})->name('back');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+
+Route::get('/paiement', function () {
+    return view('front.pages.paiement');
+})->middleware(['auth'])->name('paiement');
 
 
 Route::resource('sliders', SliderController::class);
@@ -69,4 +79,5 @@ Route::post('linksocials/{linksocial}/{coachId}', [LinksocialController::class,'
 Route::resource('users', UserController::class);
 Route::resource('galleries', GallerieController::class);
 Route::resource('testimonies', TestimonyController::class);
+Route::resource('packages', PackageController::class);
 require __DIR__.'/auth.php';
