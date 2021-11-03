@@ -12,7 +12,7 @@
             <h1 class="fs-4 py-3"><span class="text-decoration-underline">Object:</span>  {{$emailsended->object}}</h1>
             <div class="adress">
                 <p>From:<span class="text-secondary"> &lt;handstandofficiel@gmail.com&gt;</span></p>
-                <p>To:<span class="text-secondary"> &lt;{{$emailsended->user->email}}&gt;</span></p>
+                <p>To:<span class="text-secondary"> &lt;{{$emailsended->destinataire}}&gt;</span></p>
                 <p><span></span></p>
             </div>
         </div>

@@ -30,17 +30,7 @@
 
 
         @yield('content')
-       <!-- Start of Map Area -->
-        <div class="map-area">
-            <!-- google-map-area start -->
-            <div class="google-map-area">
-                <!--  Map Section -->
-                <div id="contacts" class="map-area">
-                    <div id="googleMap" style="width:100%;height:380px;"></div>
-                </div>
-            </div>
-        </div>
-        <!-- End of Map Area -->
+        @include('front.partials.map')
         <!-- Newsletter Area Start -->
         <section class="newsletter-area bg-gray">
             <div class="container">
@@ -59,6 +49,7 @@
                                         @csrf
                                     <input type="text" name="email">
                                     <button type="submit" class="btn btn-secondary">submit</button>
+                                    @include('back.partials.flash-message')
                                     </form>
                                     <!-- mailchimp-alerts Start -->
                                     <div class="mailchimp-alerts">
@@ -118,20 +109,39 @@
                         <div class="col-md-4 hidden-sm col-xs-12">
                             <div class="single-footer-widget">
                                 <h3>get in touch</h3>
-                                <form id="subscribe-form" action="https://whizthemes.com/mail-php/other/mail.php">
+                                {{-- <form id="subscribe-form" action="{{route('storeContact')}}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Name" name="con_name">
+                                            <input type="text" placeholder="Name" name="name">
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" placeholder="Email" name="con_email">
+                                            <input type="text" placeholder="Email" name="email">
                                         </div>
                                         <div class="col-sm-12">
-                                            <textarea cols="30" rows="7" name="con_message" placeholder="subject"></textarea>
+                                            <textarea cols="30" rows="7" name="subject" placeholder="subject"></textarea>
                                             <button type="submit">submit</button>
                                             <p class="subscribe-message"></p>
                                         </div>
                                     </div>
+                                </form> --}}
+                                <form action="{{route('storeContact')}}" method="POST">
+                                @csrf
+                                <div class="row">
+                                        <div class="col-sm-6">
+                                            <input type="text" placeholder="Name" name="name">
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <input type="text" placeholder="Email" name="email">
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <textarea cols="30" rows="7" name="subject" placeholder="subject"></textarea>
+                                            <button type="submit">submit</button>
+                                            {{-- <p class="subscribe-message"></p> --}}
+                                        </div>
+                                </div>
+
                                 </form>
                             </div>    
                         </div>
@@ -170,7 +180,7 @@
 			  var mapOptions = {
 				zoom: 15,
 				scrollwheel: false,
-				center: new google.maps.LatLng(23.763494, 90.432226)
+				center: new google.maps.LatLng(50.85147476196289, 4.311696529388428)
 			  };
 
 			  var map = new google.maps.Map(document.getElementById('googleMap'),

@@ -8,7 +8,9 @@
 
 
 @section('backContent')
-<div class="container d-flex flex-column  mb-2 w-75">
+
+
+<div class="container d-flex flex-column  mb-2 w-75" >
 
 @if ($errors->any())
 <div class="alert alert-danger">
@@ -20,6 +22,9 @@
 </div>
 @endif
 
+<div class="mail_filter">
+
+</div>
 
  <h1 class="text-center my-3"> Create Data Classe</h1>
 

@@ -5,13 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Semaine extends Model
+class Map extends Model
 {
     use HasFactory;
-
-
-
-    public function heures(){
-        return $this->hasMany(Heure::class);
-    }
 }

@@ -17,15 +17,11 @@ class CreateEmailsendedsTable extends Migration
             $table->id();
             $table->string('object');
             $table->string('typemail');
-            // $table->string('image');
-            // $table->string('nom');
-            // $table->string('horaire');
-            // $table->string('categorie');
-            // $table->string('effectif');
-            // $table->string('date_cours');
-            $table->foreignId('classe_id')->constrained('classes','id');
+            $table->string('destinataire');
+            $table->foreignId('classe_id')->nullable()->constrained('classes','id');
             $table->foreignId('user_id')->nullable()->constrained('users','id');
             $table->boolean('lu');
+            $table->json('texte')->nullable();
             $table->timestamps();
         });
     }

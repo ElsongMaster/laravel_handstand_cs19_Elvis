@@ -8,6 +8,7 @@ use App\Models\Coach;
 use App\Models\Event;
 use App\Models\Gallerie;
 use App\Models\Header;
+use App\Models\Map;
 use App\Models\Package;
 use App\Models\Slider;
 use App\Models\Testimony;
@@ -37,6 +38,9 @@ class HomeController extends Controller
         $galleries = Gallerie::take(6)->inRandomOrder()->get();
         $event = Event::first();
         $testimonies = Testimony::all();
+        
+        $map = Map::first();
+
 
         foreach($coaches as $coach){
             if($coach->user->role->nom === "coach_lead" ){
@@ -49,6 +53,6 @@ class HomeController extends Controller
            $coachesWithoutLead = $coaches; 
         }
         $count = 1;
-        return view('front.pages.home',compact('header','sliders','about','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count','galleries','event','testimonies'));
+        return view('front.pages.home',compact('header','sliders','about','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count','galleries','event','testimonies','map'));
     }
 }

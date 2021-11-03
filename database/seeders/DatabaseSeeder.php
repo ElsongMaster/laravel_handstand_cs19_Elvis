@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Newsletteradress;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +34,8 @@ class DatabaseSeeder extends Seeder
             GallerieSeeder::class,
             EventSeeder::class,
             TestimonySeeder::class,
+            NewsletterAdressSeeder::class,
+            MapSeeder::class,
 
         ]);
         \App\Models\User::factory(35)->create();

@@ -53,12 +53,28 @@ class EmailsendedController extends Controller
         
         return view('back.mailbox.show',compact('emailsended'));
     }
+
     public function show2(Emailsended $emailsended)
     {
         $emailsended->lu = true;
         $emailsended->save();
         
         return view('back.mailbox.show2',compact('emailsended'));
+    }
+    public function newslettershow(Emailsended $emailsended)
+    {
+        $emailsended->lu = true;
+        $emailsended->save();
+        
+        return view('back.mailbox.newslettershow',compact('emailsended'));
+    }
+
+    public function contactshow(Emailsended $emailsended)
+    {
+        $emailsended->lu = true;
+        $emailsended->save();
+        
+        return view('back.mailbox.contactshow',compact('emailsended'));
     }
 
     /**

@@ -89,13 +89,7 @@ class ClasseController extends Controller
         $classe->date = $request->date;
         $classe->save();
 
-        $newMail = new Emailsended;
-        $newMail->object = "Crétation du cours: ".$request->nom;
-        $newMail->classe_id = $classe->id;
-        $newMail->typemail = "création";
-        $newMail->user_id = Auth::user()->id;
-        $newMail->lu = false;
-        $newMail->save();
+
         
         $newsletteradress = Newsletteradress::all();
         $dataClasse = [
@@ -107,32 +101,27 @@ class ClasseController extends Controller
             "date"=>$classe->date,
         ];
 
-        $users = User::all();
+        $users = User::where('role_id','=',4)->take(4)->get();
 
 
         foreach($newsletteradress as $adress){
-            Mail::to($adress->email)->send(new Creationcoursmail($dataClasse));
+            // Mail::to($adress->email)->send(new Creationcoursmail($dataClasse));
+            Mail::to('elvis@outlook.com')->send(new Creationcoursmail($dataClasse));
+
             $newMail = new Emailsended;
             $newMail->object = "Crétation du cours: ".$request->nom;
             $newMail->classe_id = $classe->id;
+            $newMail->destinataire = $adress->email;
+            $newMail->typemail = "création";
             $newMail->user_id = null;
             $newMail->lu = false;
+            $newMail->texte = null;
             $newMail->save();
         }
 
-        // foreach($users as $user){
-        //     $userdata = [
-        //         "nom"=>$user->name,
-        //     ];
-        //     Mail::to($user->email)->send(new Creationcoursmail($dataClasse,$userdata));
-        // }
-
-
-
-
-
         return redirect()->route('classes.index');
     }
+
 
     /**
      * Display the specified resource.
@@ -298,6 +287,8 @@ class ClasseController extends Controller
 
                          $newMail->user_id = $userConnected->id;
                          $newMail->lu = false;
+                         $newMail->texte = null;
+                         $newMail->destinataire = $userConnected->email;
                          $newMail->save();
 
                         if((!$classeToSubscribe->prioritaire)&&(15-$classeToSubscribe->users->count()===5) ){

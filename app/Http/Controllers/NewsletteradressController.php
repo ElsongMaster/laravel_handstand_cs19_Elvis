@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Welcomenewsletter;
+use App\Models\Emailsended;
 use App\Models\Newsletteradress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class NewsletteradressController extends Controller
 {
@@ -36,11 +39,31 @@ class NewsletteradressController extends Controller
      */
     public function store(Request $rq)
     {
-        $newAdress = new Newsletteradress;
+        $tabAdress =[];
+        $adresses = Newsletteradress::all();
+        foreach($adresses as $adress){
+            array_push($tabAdress,$adress->email);
+        }
+        if(!in_array($rq->email,$tabAdress)){
 
-        $newAdress->email = $rq->email;
-        $newAdress->save();
-        return redirect()->back();
+            $newAdress = new Newsletteradress;
+    
+            $newAdress->email = $rq->email;
+            $newAdress->save();
+            Mail::to('elvis@outlook.com')->send(new Welcomenewsletter());
+            $newEmail = new Emailsended;
+            $newEmail->object = "Merci pour votre inscription à notre newsletter!";
+            $newEmail->typemail = "newsletter";
+            $newEmail->destinataire =  $rq->email;
+            $newEmail->classe_id = null;
+            $newEmail->user_id = null;
+            $newEmail->lu= false;
+            $newEmail->texte= null;
+            $newEmail->save();
+            return redirect()->back()->with('success','email enregistré avec succés');
+        }else{
+            return redirect()->back()->with('error','cette email a déjà été enregistrer');
+        }
     }
 
     /**
@@ -85,6 +108,8 @@ class NewsletteradressController extends Controller
      */
     public function destroy(Newsletteradress $newsletteradress)
     {
-        //
+        $newsletteradress->delete();
+
+        return redirect()->back()->with('success',"l'adresse à bien été supprimer");
     }
 }
