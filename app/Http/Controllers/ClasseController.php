@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Creationcoursmail;
+use App\Mail\Inscriptioncoursmail;
 use App\Models\Categorie;
 use App\Models\Classe;
 use App\Models\ClasseTag;
 use App\Models\ClasseUser;
+use App\Models\Emailsended;
+use App\Models\Newsletteradress;
+use App\Models\Package;
 use App\Models\Tag;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ClasseController extends Controller
@@ -46,7 +53,10 @@ class ClasseController extends Controller
      */
     public function create()
     {
-        return view('back.pages.home-page.sections.classe.create');
+        $packages = Package::all();
+        $tags = Tag::all();
+        $categories = Categorie::all();
+        return view('back.pages.home-page.sections.classe.create', compact('tags','categories','packages'));
     }
 
     /**
@@ -60,17 +70,16 @@ class ClasseController extends Controller
         $request->validate([
             "image"=>['required'],
             "nom"=>['required'],
-            "coach_id"=>['required'],
             "horaire"=>['required'],
             "categorie_id"=>['required'],
-            "effectif"=>['required'],
             "date"=>['required'],
         ]);
         $classe = new Classe;
         $classe->image = $request->file('image')->hashName();
         $request->file('image')->storePublicly('img/class/', 'public');
         $classe->nom = $request->nom;
-        $classe->coach_id = $request->coach_id;
+        $classe->package = $request->package;
+        $classe->coach_id = 1;
         $classe->horaire = $request->horaire;
         $classe->categorie_id = $request->categorie_id;
         $classe->prioritaire = $request->prioritaire;
@@ -79,6 +88,48 @@ class ClasseController extends Controller
         }
         $classe->date = $request->date;
         $classe->save();
+
+        $newMail = new Emailsended;
+        $newMail->object = "Crétation du cours: ".$request->nom;
+        $newMail->classe_id = $classe->id;
+        $newMail->typemail = "création";
+        $newMail->user_id = Auth::user()->id;
+        $newMail->lu = false;
+        $newMail->save();
+        
+        $newsletteradress = Newsletteradress::all();
+        $dataClasse = [
+            "nom"=>$classe->nom,
+            "image"=>$classe->image,
+            "horaire"=>$classe->horaire,
+            "categorie"=>$classe->categorie->nom,
+            "effectif"=>$classe->users->count(),
+            "date"=>$classe->date,
+        ];
+
+        $users = User::all();
+
+
+        foreach($newsletteradress as $adress){
+            Mail::to($adress->email)->send(new Creationcoursmail($dataClasse));
+            $newMail = new Emailsended;
+            $newMail->object = "Crétation du cours: ".$request->nom;
+            $newMail->classe_id = $classe->id;
+            $newMail->user_id = null;
+            $newMail->lu = false;
+            $newMail->save();
+        }
+
+        // foreach($users as $user){
+        //     $userdata = [
+        //         "nom"=>$user->name,
+        //     ];
+        //     Mail::to($user->email)->send(new Creationcoursmail($dataClasse,$userdata));
+        // }
+
+
+
+
 
         return redirect()->route('classes.index');
     }
@@ -227,6 +278,28 @@ class ClasseController extends Controller
                         $newInscritpion->save();    
                         $msg= "Votre inscription à bien été enregistrer";
                         $tagMsg = 'success';
+                        $dataClasse = [
+                            "nom"=>$classeToSubscribe->nom,
+                            "image"=>$classeToSubscribe->image,
+                            "horaire"=>$classeToSubscribe->horaire,
+                            "categorie"=>$classeToSubscribe->categorie->nom,
+                            "effectif"=>$classeToSubscribe->users->count(),
+                            "date"=>$classeToSubscribe->date,
+                        ];
+                        $userdata = [
+                            "nom"=>$userConnected->name,
+                        ];
+
+                         Mail::to($userConnected->email)->send(new Inscriptioncoursmail($dataClasse,$userdata));
+                         $newMail = new Emailsended;
+                         $newMail->object = "Inscription au cours de ".$classeToSubscribe->nom;
+                         $newMail->classe_id = $classeToSubscribe->id;
+                         $newMail->typemail = "inscription";
+
+                         $newMail->user_id = $userConnected->id;
+                         $newMail->lu = false;
+                         $newMail->save();
+
                         if((!$classeToSubscribe->prioritaire)&&(15-$classeToSubscribe->users->count()===5) ){
                             $classeToSubscribe->color = "orange";
                             $classeToSubscribe->save();

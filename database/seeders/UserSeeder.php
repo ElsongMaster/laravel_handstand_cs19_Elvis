@@ -87,6 +87,15 @@ class UserSeeder extends Seeder
             'package_id'=>null,
             'password' =>Hash::make('test'),
             ],
+            
+            [
+            'name' => 'Els le Beau gosse',
+            'email' =>'elvis@outlook.com',
+            'email_verified_at' => now(),
+            'role_id'=>4,
+            'package_id'=>3,
+            'password' =>Hash::make('test'),
+            ],
         ]);
     }
 }

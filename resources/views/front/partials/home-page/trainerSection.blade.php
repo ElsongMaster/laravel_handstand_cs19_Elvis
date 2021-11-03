@@ -10,7 +10,7 @@
                     </div>
                     @for ($i=0;$i<$coaches->count();$i++)
                         
-                        @if ($i === 1)
+                        @if ($coachLead !==null && $coaches->count()>=2 && $i === 1)
                             
                         
                     
@@ -30,6 +30,7 @@
                                 </div>
                             </div>
                         </div> 
+
                         @else
                         
                     
@@ -37,9 +38,9 @@
                             <div class="single-trainer text-center">
                                 <img src="{{asset('img/trainer/'.$coachesWithoutLead[$i>0?$i-1:$i]->image)}}" alt="trainer">
                                 <div class="trainer-hover">
-                                    <h3>{{$coachesWithoutLead[$i===0?1:0]->user->name}}</h3>
+                                    <h3>{{$coachesWithoutLead[$i>0?$i-1:$i]->user->name}}</h3>
                                     <ul class="liSocial">
-                                         @foreach ($coachesWithoutLead[$i===0?1:0]->linksocials as $link )
+                                         @foreach ($coachesWithoutLead[$i>0?$i-1:$i]->linksocials as $link )
                                         <li class="list-unstyled" ><a href="{{$link->lien}}"><i class="{{$link->icon->nomClass}}"></i></a></li>
                                         @endforeach  
                                     </ul>

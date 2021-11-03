@@ -37,7 +37,6 @@ class HomeController extends Controller
         $galleries = Gallerie::take(6)->inRandomOrder()->get();
         $event = Event::first();
         $testimonies = Testimony::all();
-        // dd($event);
 
         foreach($coaches as $coach){
             if($coach->user->role->nom === "coach_lead" ){
@@ -45,9 +44,7 @@ class HomeController extends Controller
             }
         }
         if($coachLead !== null){
-            // dd($coachLead);
-            $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(2)->inRandomOrder()->get();
-            // dd($coachesWithoutLead->count());
+            $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(3)->inRandomOrder()->get();
         }else{
            $coachesWithoutLead = $coaches; 
         }

@@ -62,4 +62,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Classe::class,'pivot_classe_user','user_id','classe_id');
     }
 
+
+    public function paiements(){
+        return $this->hasMany(Paiement::class);
+    }
+    public function emailsended(){
+        return $this->hasOne(Emailsended::class);
+    }
+
 }

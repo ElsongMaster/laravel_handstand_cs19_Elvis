@@ -80,17 +80,7 @@
 <div class="mb-3">
 
     <label for="tags" class="form-label">Tag(s)</label>
-{{-- <select  multiple="multiple" class="multiple-select">
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-  <option value="4">Four</option>
-  <option value="5">Five</option>
-  <option value="6">Six</option>
-  <option value="7">Seven</option>
-  <option value="8">Eight</option>
-</select> --}}
-    {{-- {{dd($class->tags->select('id')->get())}} --}}
+
     <select  multiple="multiple" class="multiple-select" name="tags[]" id="tags" >
         @foreach ($tags as $tag )
 

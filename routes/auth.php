@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
                 ->name('register');
+Route::post('/register2/{package}', [RegisteredUserController::class, 'store2'])
+                ->name('register2');
 
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
+
+Route::get('/create2/{package}', [RegisteredUserController::class, 'create2'])
+                ->name('create2');
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
@@ -23,6 +28,12 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest');
+
+
+Route::get('/loginRoleUser/{package}', [AuthenticatedSessionController::class, 'createroleuser'])
+                ->name('login2');
+Route::post('/StoreRoleUser/store', [AuthenticatedSessionController::class, 'storeroleuser'])
+                ->name('storeroleuser');
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')

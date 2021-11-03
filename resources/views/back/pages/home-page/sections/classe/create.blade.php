@@ -34,36 +34,100 @@
 </div>
 <div class="mb-3">
     <label for="nom" class="form-label">Nom</label>
-    <input type="text"   class="form-control" id="nom" name="nom" >
+    <input type="text" value = "{{old('nom')}}"   class="form-control" id="nom" name="nom" >
 </div>
-<div class="mb-3">
+{{-- Limiter l'accès à la création de classe seulement au user avec role coach et coach lead --}}
+{{-- <div class="mb-3" hidden>
     <label for="coach_id" class="form-label">Coach</label>
-    <input type="text"    class="form-control" id="coach_id" name="coach_id" >
+    <input type="text" value = "{{Auth::user()->id}}"   class="form-control" id="coach_id" name="coach_id" >
+</div> --}}
+<div class="mb-3">
+    <label for="horaire" class="form-label">Horaire</label>
+    <select name="horaire" id="horaire">
+
+
+        <option value={{"8.00Am-10.00Am"}} >8.00Am-10.00Am</option>
+        <option value={{"10.00Am-12.00Am"}} >10.00Am-12.00Am</option>
+        <option value={{"1.00Pm-3.00Pm"}} >1.00Pm-3.00Pm</option>
+        <option value={{"3.00Pm-6.00Pm"}} >3.00Pm-6.00Pm</option>
+
+
+
+    </select>
 </div>
 <div class="mb-3">
     <label for="prioritaire" class="form-label">Prioritaire</label>
     <select name="prioritaire" id="prioritaire">
-        <option ngValue="true" >Oui</option>
-        <option ngValue="flase">Non</option>
+
+
+        <option value={{1}} >Oui</option>
+        <option value={{0}} selected>Non</option> 
+
+
+
     </select>
 </div>
 <div class="mb-3">
-    <label for="effectif" class="form-label">Nombre de participants</label>
-    <input type="text" value = "{{$classe->effectif}}"   class="form-control" id="effectif" name="effectif" >
+    <label for="categorie_id" class="form-label">Catégorie</label>
+    <select name="categorie_id" id="categorie_id" >
+        @foreach ($categories as $categorie )
+            
+            <option value="{{$categorie->id}}">{{$categorie->nom}}</option>
+                
+
+        @endforeach
+
+    </select>
 </div>
 <div class="mb-3">
+
+    <label for="tags" class="form-label">Tag(s)</label>
+
+    <select  multiple="multiple" class="multiple-select" name="tags[]" id="tags" >
+        @foreach ($tags as $tag )
+
+
+            <option value="{{$tag->id}}" >{{$tag->nom}}</option>
+                
+
+        @endforeach
+
+    </select>
+</div>
+<div class="mb-3">
+
+    <label for="tags" class="form-label">Packages des personnes pouvant avoir accès au cours</label>
+
+    <select  multiple="multiple" class="multiple-select" name="package[]" id="tags" >
+        @foreach ($packages as $package )
+
+
+            <option value="{{$package->nom}}" >{{$package->nom}}</option>
+                
+
+        @endforeach
+
+    </select>
+</div>
+
+<div class="mb-3">
     <label for="date" class="form-label">Date</label>
-    <input type="date" value = "{{$classe->date}}"   class="form-control" id="date" name="date" >
+    <input type="date" value = "{{old('date')}}"   class="form-control" id="date" name="date" >
 </div>
 
 
 
 <div class="d-flex justify-content-center">
 
-    <button type="submit" class="date date-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </div>
 
 </form>
 
 </div>
+<script>
+  $(function() {
+    $('.multiple-select').multipleSelect()
+  })
+</script>
 @endsection

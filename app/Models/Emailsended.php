@@ -5,22 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Package extends Model
+class Emailsended extends Model
 {
     use HasFactory;
+
 
 
     public function classe(){
         return $this->belongsTo(Classe::class);
     }
-
-
-    public function paiement(){
-        return $this->hasOne(Paiement::class);
-    }
-
-
-    public function users(){
-        return $this->hasMany(User::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

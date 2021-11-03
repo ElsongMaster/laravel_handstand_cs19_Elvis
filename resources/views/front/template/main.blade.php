@@ -50,9 +50,15 @@
                             <div class="newsletter-content section-title text-center">
                                 <h2>subscribe now for latest update!</h2> 
                                 <div class="newsletter-form">
-                                    <form action="#" id="mc-form" class="mc-form fix">
+                                    {{-- <form action="{{route('newsletteradresses.store')}}" method="post" id="mc-form" class="mc-form fix" enctype="multipart/form-data">
+                                        @csrf
                                         <input id="mc-email" type="email" name="email" placeholder="Enter Your E-mail ID">
-                                        <button id="mc-submit" type="submit" class="default-btn" data-text="submit"><span>submit</span></button> 
+                                        <button id="mc-submit" type="submit" class="default-btn" data-text="submit" ><span >submit</span></button> 
+                                    </form> --}}
+                                    <form action="{{route('newsletteradresses.store')}}" method="POST">
+                                        @csrf
+                                    <input type="text" name="email">
+                                    <button type="submit" class="btn btn-secondary">submit</button>
                                     </form>
                                     <!-- mailchimp-alerts Start -->
                                     <div class="mailchimp-alerts">

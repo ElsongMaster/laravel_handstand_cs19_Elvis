@@ -11,7 +11,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GallerieController;
 use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\EmailsendedController;
+use App\Http\Controllers\NewsletteradressController;
 use App\Models\Header;
+use App\Models\Package;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -61,8 +67,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/paiement', function () {
-    return view('front.pages.paiement');
+Route::get('/paiement/{package}', function (Package $package) {
+
+        $userIdConnected = Auth::user()->id;
+        $packageIdsUser = [];
+        foreach($package->users as $user){
+            array_push($packageIdsUser,$user->id);
+        }
+        if(!in_array($userIdConnected,$packageIdsUser)){
+
+            return view('front.pages.paiement',compact('package'));
+        }else{
+            return view('front.pages.modalPackageAlreadyExist');
+        }
 })->middleware(['auth'])->name('paiement');
 
 
@@ -80,4 +97,8 @@ Route::resource('users', UserController::class);
 Route::resource('galleries', GallerieController::class);
 Route::resource('testimonies', TestimonyController::class);
 Route::resource('packages', PackageController::class);
+Route::resource('paiement', PaiementController::class);
+Route::resource('emailsendeds', EmailsendedController::class);
+Route::get('emailsendeds/{emailsended}/show2', [EmailsendedController::class,'show2'])->name('emailsendeds.show2');
+Route::resource('newsletteradresses', NewsletteradressController::class);
 require __DIR__.'/auth.php';

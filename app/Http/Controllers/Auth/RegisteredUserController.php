@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -22,6 +23,14 @@ class RegisteredUserController extends Controller
     {
         return view('auth.register');
     }
+
+
+    public function create2(Package $package)
+    {
+        return view('auth.registerRoleUser',compact('package'));
+    }
+
+
 
     /**
      * Handle an incoming registration request.
@@ -50,5 +59,29 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+
+    public function store2(Request $request, Package $package)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role_id' => 3,
+            'package_id' => null,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect()->route('paiement',$package->id)->with('success','Vous vous êtes correctement enregistrer');
     }
 }
