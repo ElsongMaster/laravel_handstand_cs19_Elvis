@@ -17,8 +17,10 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string("titre");
             $table->string("description");
-            $table->string("date");
+            $table->date("date");
             $table->string("heure");
+            $table->boolean("selected");
+
             $table->timestamps();
         });
     }

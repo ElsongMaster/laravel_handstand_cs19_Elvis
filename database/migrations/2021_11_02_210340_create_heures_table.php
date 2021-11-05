@@ -16,6 +16,7 @@ class CreateHeuresTable extends Migration
         Schema::create('heures', function (Blueprint $table) {
             $table->id();
             $table->string('creneau');
+            $table->foreignId('semaine_id')->constrained('semaines','id');
             $table->timestamps();
         });
     }

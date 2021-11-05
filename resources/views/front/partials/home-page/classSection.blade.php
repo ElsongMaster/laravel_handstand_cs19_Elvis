@@ -12,8 +12,14 @@
                 <div class="row"> 
                     @foreach ($classes as $classe)
                         
-                    <div class="col-md-4 col-sm-6 col-xs-12 ">     
-                        <div class=" {{$classe->color ==="green"?'green':''}} {{$classe->color ==="orange"?'orange':''}}  {{$classe->color ==="red"?'red':''}}single-class   ">
+                    <div class="col-md-4 col-sm-6 col-xs-12 ">
+                       @if (\Carbon\Carbon::now()->toDateString()>$classe->date)
+                            <div class=" {{$classe->color ==="green"?'green':''}} {{$classe->color ==="orange"?'orange':''}}  {{$classe->color ==="red"?'red':''}}single-class"  hidden>
+                                
+                        @else
+                            <div class=" {{$classe->color ==="green"?'green':''}} {{$classe->color ==="orange"?'orange':''}}  {{$classe->color ==="red"?'red':''}}single-class"  >
+                           
+                       @endif
                             <div class="single-img">
                                 <a href="{{asset('class')}}"><img src="{{asset('img/class/'.$classe->image)}}" alt="class"></a>
                                 <div class="gallery-icon">
@@ -32,44 +38,7 @@
                         </div>
                     </div>
                     @endforeach
-                    {{-- <div class="col-md-4 col-sm-6 col-xs-12">     
-                        <div class="single-class">
-                            <div class="single-img">
-                                <a href="{{route('class')}}"><img src="{{asset('img/class/2.jpg')}}" alt="class"></a>
-                                <div class="gallery-icon">
-                                    <a class="image-popup" href="{{asset('img/class/2.jpg')}}">
-                                        <i class="zmdi zmdi-zoom-in"></i>
-                                    </a>   
-                                </div>
-                            </div>
-                            <div class="single-content">
-                                <h3><a href="{{route('class')}}">yoga for climbers</a></h3>
-                                <ul>
-                                    <li><i class="zmdi zmdi-face"></i>Sathi Bhuiyan</li>
-                                    <li><i class="zmdi zmdi-alarm"></i>10.00Am-05:00Pm</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 hidden-sm col-xs-12">     
-                        <div class="single-class">
-                            <div class="single-img">
-                                <a href="{{route('class')}}"><img src="{{asset('img/class/3.jpg')}}" alt="class"></a>
-                                <div class="gallery-icon">
-                                    <a class="image-popup" href="{{asset('img/class/3.jpg')}}">
-                                        <i class="zmdi zmdi-zoom-in"></i>
-                                    </a>   
-                                </div>
-                            </div>
-                            <div class="single-content">
-                                <h3><a href="{{route('class')}}">yoga for climbers</a></h3>
-                                <ul>
-                                    <li><i class="zmdi zmdi-face"></i>Sathi Bhuiyan</li>
-                                    <li><i class="zmdi zmdi-alarm"></i>10.00Am-05:00Pm</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>  --}}
+
                 </div>
 
             </div>

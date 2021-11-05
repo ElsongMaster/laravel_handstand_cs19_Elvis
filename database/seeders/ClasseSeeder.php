@@ -24,7 +24,7 @@ class ClasseSeeder extends Seeder
                 "categorie_id"=>3,
                 "prioritaire"=>true,
                 "color"=>null,
-                "date"=>date_create("2021-10-22"),
+                "date"=>date_create("2021-11-22"),
             ],
             [
                 "image"=>"2.jpg",
@@ -35,7 +35,7 @@ class ClasseSeeder extends Seeder
                 "categorie_id"=>2,
                 "prioritaire"=>true,
                 "color"=>null,
-                "date"=>date_create("2021-10-20"),
+                "date"=>date_create("2021-11-20"),
             ],
             [
                 "image"=>"3.jpg",
@@ -46,7 +46,7 @@ class ClasseSeeder extends Seeder
                 "categorie_id"=>2,
                 "prioritaire"=>true,
                 "color"=>null,
-                "date"=>date_create("2021-10-23"),
+                "date"=>date_create("2021-11-23"),
             ],
             
         ]);

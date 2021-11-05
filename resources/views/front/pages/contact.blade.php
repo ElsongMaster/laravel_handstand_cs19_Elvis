@@ -3,27 +3,7 @@
 
 
 @section('content')
-		<!-- Banner Area Start -->
-		<section class="banner-area text-left">	
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="banner-content-wrapper">
-                            <div class="banner-content">
-                                <h2>contact</h2>
-                                <div class="banner-breadcrumb">
-                                    <ul>
-                                        <li><a href="{{route('home')}}">home </a> <i class="zmdi zmdi-chevron-right"></i></li>
-                                        <li>contact</li>
-                                    </ul>
-                                </div>
-                            </div>  
-                        </div> 
-                    </div>
-                </div>
-            </div>
-		</section>
-		<!-- Banner Area End -->
+
 		<!-- Contact Area Start -->
 		<div class="contact-area pt-95 pb-100">
 		    <div class="container">

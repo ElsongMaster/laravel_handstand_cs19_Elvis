@@ -36,6 +36,7 @@ class ClasseController extends Controller
                 $class->color= "orange";
             }elseif($class->users->count()===15 ||$class->date<now()->format('Y-m-d')){
                 $class->color= "red";
+                
 
             }
             $class->save();

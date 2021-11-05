@@ -25,6 +25,9 @@
     </head>
     <body>
         @include('front.partials.home-page.header')
+        @if(!Route::is('home') )
+           @include('front.partials.bannerModel')
+        @endif
         
 
 
@@ -176,27 +179,38 @@
         <script src="{{asset('js/plugins.js')}}"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSLSFRa0DyBj9VGzT7GM6SFbSMcG0YNBM "></script> 
         <script>
-			function initialize() {
-			  var mapOptions = {
-				zoom: 15,
-				scrollwheel: false,
-				center: new google.maps.LatLng(50.85147476196289, 4.311696529388428)
-			  };
 
-			  var map = new google.maps.Map(document.getElementById('googleMap'),
-				  mapOptions);
+            function changeColorTitel(){
+                var $titels = Array.from(document.getElementsByTagName('h2'));
+                // $titels.forEach(element => console.log(element.innerText.split("(").join(",").split(")").join(",").split(",")));
+                $titels.forEach(element => console.log(element.innerText));
+                $titels.forEach(element => element.innerHtml = element.innerHtml);
+                // $titels.forEach(element => console.log(element.innerText));
+
+            }
+            changeColorTitel();
+
+			// function initialize() {
+			//   var mapOptions = {
+			// 	zoom: 15,
+			// 	scrollwheel: false,
+			// 	center: new google.maps.LatLng(50.85147476196289, 4.311696529388428)
+			//   };
+
+			//   var map = new google.maps.Map(document.getElementById('googleMap'),
+			// 	  mapOptions);
 
 
-			  var marker = new google.maps.Marker({
-				position: map.getCenter(),
-				animation:google.maps.Animation.BOUNCE,
-				icon: 'img/map-marker.png',
-				map: map
-			  });
+			//   var marker = new google.maps.Marker({
+			// 	position: map.getCenter(),
+			// 	animation:google.maps.Animation.BOUNCE,
+			// 	icon: 'img/map-marker.png',
+			// 	map: map
+			//   });
                 
-			}
+			// }
                 
-			google.maps.event.addDomListener(window, 'load', initialize);
+			// google.maps.event.addDomListener(window, 'load', initialize);
 		</script>
         <script src="{{asset('js/main.js')}}"></script>
     </body>

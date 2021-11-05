@@ -16,6 +16,12 @@ use App\Http\Controllers\EmailsendedController;
 use App\Http\Controllers\FormulairecontactController;
 use App\Http\Controllers\NewsletteradressController;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\PgClassesController;
+use App\Http\Controllers\PgBlogController;
+use App\Http\Controllers\PgAboutusController;
+use App\Http\Controllers\PgGalleryController;
+use App\Http\Controllers\PgContactController;
 use App\Models\Header;
 use App\Models\Package;
 use App\Models\User;
@@ -35,34 +41,18 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [HomeController::class,'index'])->name('home');
-Route::get('/about', function () {
-    return view('front.pages.about-us');
-})->name('about');
-// Route::get('/template', function () {
-//     $header = Header::first();
-//     return view('front.template.main',compact('header'));
-// });
-Route::get('/class', function () {
-    $header = Header::first();
-    return view('front.pages.class',compact('header'));
-})->name('class');
-Route::get('/contact', function () {
-    $header = Header::first();
-    return view('front.pages.contact');
-})->name('contact');
+Route::get('/class', [PgClassesController::class,'index'])->name('class');
+Route::get('/blog', [PgBlogController::class,'index'])->name('blog');
+Route::get('/about-us', [PgAboutusController::class,'index'])->name('about');
+Route::get('/gallery', [PgGalleryController::class,'index'])->name('gallery');
+Route::get('/contact', [PgContactController::class,'index'])->name('contact');
 
-Route::get('/gallery', function () {
-    $header = Header::first();
-    return view('front.pages.gallery');
-
-})->name('gallery');
-Route::get('/back', function () {
-    return view('back.pages.homeBack');
-})->name('back');
 
 Route::get('/back', function () {
     return view('back.pages.homeBack');
 })->name('back');
+
+
 
 
 Route::get('/dashboard', function () {
@@ -106,6 +96,7 @@ Route::get('emailsendeds/{emailsended}/newslettershow', [EmailsendedController::
 Route::get('emailsendeds/{emailsended}/contactshow', [EmailsendedController::class,'contactshow'])->name('emailsendeds.contactshow');
 Route::resource('newsletteradresses', NewsletteradressController::class);
 Route::resource('maps', MapController::class);
+Route::resource('events', EventController::class);
 Route::post('FormulaireContact',[FormulairecontactController::class,'store'])->name('storeContact');
 Route::get('FormulaireContact/adress',[FormulairecontactController::class,'storeadress'])->name('storeadress');
 Route::get('createadress',[FormulairecontactController::class,'createadress'])->name('createadress');

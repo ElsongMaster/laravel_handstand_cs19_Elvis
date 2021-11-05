@@ -14,7 +14,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::all();
+
+        return view('back.pages.home-page.sections.event.allEvent',compact('events'));
     }
 
     /**
@@ -24,7 +26,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+         return view('back.pages.home-page.sections.event.create');
+
     }
 
     /**
@@ -33,9 +36,34 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $rq)
     {
-        //
+        $rq->validate([
+            "titre"=>["required"],
+            "description"=>["required"],
+            "date"=>["required"],
+            "heure"=>["required"],
+            "selected"=>["required"]
+        ]);
+
+        $newEvent = new Event;
+        $newEvent->titre = $rq->titre;
+        $newEvent->description = $rq->description;
+        $newEvent->date = $rq->date;
+        $newEvent->heure = $rq->heure;
+        $newEvent->selected = $rq->selected;
+        if($rq->selected){
+            foreach(Event::all() as $event){
+                $event->selected = false;
+                $event->save();
+
+            }
+        }
+        $newEvent->save();
+
+        return redirect()->route('events.index')->with('success','Event modifié avec succès');
+
+        
     }
 
     /**
@@ -46,7 +74,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return view('back.pages.home-page.sections.event.show', compact('event'));
     }
 
     /**
@@ -57,7 +85,8 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('back.pages.home-page.sections.event.edit', compact('event'));
+
     }
 
     /**
@@ -67,9 +96,32 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $rq, Event $event)
     {
-        //
+        $rq->validate([
+            "titre"=>["required"],
+            "description"=>["required"],
+            "date"=>["required"],
+            "heure"=>["required"],
+            "selected"=>["required"]
+
+        ]);
+
+        $event->titre = $rq->titre;
+        $event->description = $rq->description;
+        $event->date = $rq->date;
+        $event->heure = $rq->heure;
+        $event->selected = $rq->selected;
+            if($rq->selected){
+                foreach(Event::where('id','!=',$event->id)->get() as $eventbis){
+                    $eventbis->selected = false;
+                    $eventbis->save();
+    
+                }
+            }
+        $event->save();
+
+        return redirect()->route('events.index')->with('success','Event crée avec succès');
     }
 
     /**
@@ -80,6 +132,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return redirect()->back()->with('success', 'Event correctement supprimé');
     }
 }

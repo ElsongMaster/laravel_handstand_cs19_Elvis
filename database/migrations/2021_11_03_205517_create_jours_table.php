@@ -16,8 +16,8 @@ class CreateJoursTable extends Migration
         Schema::create('jours', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->foreignId('classe_id')->constrained('classes','id');
-            $table->foreignId('heure_id')->constrained('heures','id');
+            $table->foreignId('classe_id')->nullable()->constrained('classes','id');
+            $table->foreignId('heure_id')->constrained('heures','id')->onUpdate('cascade');
             $table->timestamps();
         });
     }
