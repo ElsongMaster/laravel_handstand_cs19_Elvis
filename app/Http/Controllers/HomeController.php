@@ -6,6 +6,7 @@ use App\Models\About;
 use App\Models\Classe;
 use App\Models\Coach;
 use App\Models\Event;
+use App\Models\Footerdata;
 use App\Models\Gallerie;
 use App\Models\Header;
 use App\Models\Map;
@@ -30,12 +31,12 @@ class HomeController extends Controller
         $titreGallery = Titre::find(5);
         $titreEvent = Titre::find(6);
         $titrePricing = Titre::find(7);
-        $titreClient = Titre::find(7);
+        $titreClient = Titre::find(8);
         $header = Header::first();
         $sliders = Slider::orderBy('selected','DESC')->get();
         $about = About::first();
         $packages = Package::all();
-        $classes = Classe::orderBy('prioritaire','DESC')->get();
+        $classes = Classe::take(3)->orderBy('prioritaire','DESC')->get();
         $coaches = Coach::all();
         $coachLead = null;
         $galleries = Gallerie::take(6)->inRandomOrder()->get();
@@ -46,8 +47,9 @@ class HomeController extends Controller
         Carbon::now();
         $semaines = Semaine::paginate(1);
         $titretimes = Titretime::all();
-
-
+        $recentClasses = Classe::take(2)->orderBy('date','ASC')->get();
+        
+        $footerdatas = Footerdata::all();
         foreach($coaches as $coach){
             if($coach->user->role->nom === "coach_lead" ){
                 $coachLead = $coach;
@@ -59,6 +61,6 @@ class HomeController extends Controller
            $coachesWithoutLead = $coaches; 
         }
         $count = 1;
-        return view('front.pages.home',compact('header','sliders','about','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count','galleries','events','testimonies','map','semaines','titretimes'));
+        return view('front.pages.home',compact('header','sliders','about','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count','galleries','events','testimonies','map','semaines','titretimes','recentClasses','footerdatas'));
     }
 }

@@ -31,40 +31,7 @@
                         </div>
                     </div>
                     @endforeach
-                    {{-- <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="single-table text-center">
-                            <div class="table-head">
-                                <h2>gold package</h2>
-                                <h1>$50<span>/month</span></h1>
-                            </div>
-                            <div class="table-body">
-                                <ul>
-                                    <li>Free T-Shirt & swags</li>
-                                    <li>Free of all message treatments</li>
-                                    <li>Access Clup Facilites</li>
-                                    <li>Out Door activites</li>
-                                </ul>
-                                <a href="#">get started</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 hidden-sm col-xs-12">
-                        <div class="single-table text-center">
-                            <div class="table-head">
-                                <h2>platinum package</h2>
-                                <h1>$70<span>/month</span></h1>
-                            </div>
-                            <div class="table-body">
-                                <ul>
-                                    <li>Free T-Shirt & swags</li>
-                                    <li>Free of all message treatments</li>
-                                    <li>Access Clup Facilites</li>
-                                    <li>Out Door activites</li>
-                                </ul>
-                                <a href="#">get started</a>
-                            </div>
-                        </div>
-                    </div> --}}
+
                 </div>
             </div>
         </div>

@@ -11,18 +11,20 @@
 
 @section('backContent')
     <div class="container">
-
+    <div class="d-flex justify-content-end m-3">
+        <a href="/slide" class="btn btn-info text-light">Voir l'apercu</a>
+    </div>
         <h2 class="text-center fs-2">Toute les données du slider</h2>
     <form action="{{route('update2')}}" method="post"  class="w-50 my-5">
             @csrf
-        <div class="mb-3">
-            <label for="selected_id" class="form-label fs-4">Vous pouvez choisir parmi les indices des élements du slider le premier élement que vous voulez voir afficher</label>
+        <div class="mb-3" style="display: flex;">
+            <label for="selected_id" class="form-label fs-4">Choix du premier slide: </label>
             <select name="selected_id" id="selected_id">
                 @foreach ($sliders as $slider )
                    @if($slider->selected)
-                    <option value="{{$slider->id}}" selected>{{$slider->id}}</option>
+                    <option value="{{$slider->id}}" selected> Slide {{$slider->id}}</option>
                     @else
-                    <option value="{{$slider->id}}" >{{$slider->id}}</option>
+                    <option value="{{$slider->id}}" >Slide {{$slider->id}}</option>
                     @endif
                 @endforeach
             </select>

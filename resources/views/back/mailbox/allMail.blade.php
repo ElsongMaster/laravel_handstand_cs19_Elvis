@@ -35,12 +35,12 @@
                 @elseif ($email->typemail==="création")
                     <a href="{{route('emailsendeds.show2',$email->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                 @elseif ($email->typemail==="newsletter")
-                <a href="{{route('emailsendeds.newslettershow',$email->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                    <a href="{{route('emailsendeds.newslettershow',$email->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                 
-                @else
-                <a href="{{route('emailsendeds.contactshow',$email->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                @elseif($email->typemail==="event")
+                    <a href="{{route('emailsendeds.eventshow',$email->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
 
-                    
+                
                 @endif
               <form action="{{route('emailsendeds.destroy',$email->id)}}" method="post">
                   @csrf

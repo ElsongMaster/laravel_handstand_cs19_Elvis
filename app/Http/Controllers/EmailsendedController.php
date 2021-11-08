@@ -76,6 +76,13 @@ class EmailsendedController extends Controller
         
         return view('back.mailbox.contactshow',compact('emailsended'));
     }
+    public function eventshow(Emailsended $emailsended)
+    {
+        $emailsended->lu = true;
+        $emailsended->save();
+        
+        return view('back.mailbox.eventshow',compact('emailsended'));
+    }
 
     /**
      * Show the form for editing the specified resource.

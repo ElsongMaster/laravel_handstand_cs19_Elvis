@@ -43,7 +43,7 @@ class ClasseController extends Controller
         }
 
         $classes = Classe::orderByRaw("FIELD(color , 'green', 'orange', 'red') ASC")->get();
-        return view('back.pages.home-page.sections.classe.allClasse',compact('classes'));
+        return view('back.classe.allClasse',compact('classes'));
 
     }
 
@@ -57,7 +57,7 @@ class ClasseController extends Controller
         $packages = Package::all();
         $tags = Tag::all();
         $categories = Categorie::all();
-        return view('back.pages.home-page.sections.classe.create', compact('tags','categories','packages'));
+        return view('back.classe.create', compact('tags','categories','packages'));
     }
 
     /**
@@ -106,7 +106,6 @@ class ClasseController extends Controller
 
 
         foreach($newsletteradress as $adress){
-            // Mail::to($adress->email)->send(new Creationcoursmail($dataClasse));
             Mail::to('elvis@outlook.com')->send(new Creationcoursmail($dataClasse));
 
             $newMail = new Emailsended;
@@ -120,7 +119,7 @@ class ClasseController extends Controller
             $newMail->save();
         }
 
-        return redirect()->route('classes.index');
+        return redirect()->route('layoutClasses');
     }
 
 
@@ -132,7 +131,7 @@ class ClasseController extends Controller
      */
     public function show(Classe $classe)
     {
-        return view('back.pages.home-page.sections.classe.show',compact('classe'));
+        return view('back.classe.show',compact('classe'));
 
     }
 
@@ -153,7 +152,7 @@ class ClasseController extends Controller
                 array_push($tagToSelected,$tag->id);
             }
         }
-        return view('back.pages.home-page.sections.classe.edit',compact('class','categories','tags','tagToSelected'));
+        return view('back.classe.edit',compact('class','categories','tags','tagToSelected'));
 
     }
 

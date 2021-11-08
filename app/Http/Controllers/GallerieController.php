@@ -15,7 +15,7 @@ class GallerieController extends Controller
     public function index()
     {
         $photos = Gallerie::all();
-        return view('back.pages.gallery.allPhoto',compact('photos'));
+        return view('back.gallery.allPhoto',compact('photos'));
     }
 
     /**
@@ -25,7 +25,7 @@ class GallerieController extends Controller
      */
     public function create()
     {
-        return view('back.pages.gallery.create');
+        return view('back.gallery.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class GallerieController extends Controller
      */
     public function show(Gallerie $gallerie)
     {
-        return view('back.pages.gallery.show',compact('gallerie'));
+        return view('back.gallery.show',compact('gallerie'));
     }
 
     /**
@@ -67,7 +67,7 @@ class GallerieController extends Controller
      */
     public function edit(Gallerie $gallery)
     {
-        return view('back.pages.gallery.edit',compact('gallery'));
+        return view('back.gallery.edit',compact('gallery'));
 
     }
 

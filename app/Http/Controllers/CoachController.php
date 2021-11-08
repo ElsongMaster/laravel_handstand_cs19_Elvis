@@ -18,7 +18,7 @@ class CoachController extends Controller
         $coaches = Coach::all();
 
 
-        return view('back.pages.home-page.sections.tainer.allTrainer',compact('coaches'));
+        return view('back.trainer.allTrainer',compact('coaches'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CoachController extends Controller
      */
     public function create()
     {
-        return view('back.pages.home-page.sections.tainer.create');
+        return view('back.trainer.create');
         
     }
 
@@ -51,7 +51,7 @@ class CoachController extends Controller
      */
     public function show(Coach $coach)
     {
-        return view('back.pages.home-page.sections.tainer.show', compact('coach'));
+        return view('back.trainer.show', compact('coach'));
     }
 
     /**
@@ -62,7 +62,7 @@ class CoachController extends Controller
      */
     public function edit(Coach $coach)
     {
-        return view('back.pages.home-page.sections.tainer.edit', compact('coach'));
+        return view('back.trainer.edit', compact('coach'));
 
     }
 

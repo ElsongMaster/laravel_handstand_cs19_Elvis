@@ -46,7 +46,7 @@ class AboutController extends Controller
      */
     public function show(About $about)
     {
-        //
+        return view('back.about.show',compact('about'));
     }
 
     /**

@@ -16,7 +16,7 @@ class HeaderController extends Controller
     public function index()
     {
         $header = Header::first();
-        return view('front.partials.home-page.header', compact('header'));
+        return view('back.header.allheader', compact('header'));
     }
 
     /**
@@ -48,7 +48,7 @@ class HeaderController extends Controller
      */
     public function show(Header $header)
     {
-        return view("back.pages.home-page.sections.header.show",compact('header'));
+        return view("back.header.show",compact('header'));
     }
 
     /**
@@ -59,7 +59,7 @@ class HeaderController extends Controller
      */
     public function edit(Header $header)
     {
-        return view("back.pages.home-page.sections.header.edit",compact('header'));
+        return view("back.header.edit",compact('header'));
 
     }
 

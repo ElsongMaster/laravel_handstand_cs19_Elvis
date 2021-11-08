@@ -3,8 +3,10 @@
 
 
 @section('backContent')
+<div class="d-flex justify-content-end m-3">
+    <a href="{{route('headers.index')}}" class="btn btn-info text-light">Voir l'apercu</a>
+</div>
 <div class="container-fluid d-flex justify-content-center align-items-center">
-
     <div class="card m-3" style="width: 18rem;">
     <img src="{{asset('img/logo/'.$header->logo)}}" class="card-img-top" alt="...">
             <div class="card-body">

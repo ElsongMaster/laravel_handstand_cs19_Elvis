@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Eventcreate;
+use App\Models\Emailsended;
 use App\Models\Event;
+use App\Models\Newsletteradress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class EventController extends Controller
 {
@@ -16,7 +20,7 @@ class EventController extends Controller
     {
         $events = Event::all();
 
-        return view('back.pages.home-page.sections.event.allEvent',compact('events'));
+        return view('back.event.allEvent',compact('events'));
     }
 
     /**
@@ -26,7 +30,9 @@ class EventController extends Controller
      */
     public function create()
     {
-         return view('back.pages.home-page.sections.event.create');
+
+
+         return view('back.event.create');
 
     }
 
@@ -60,6 +66,29 @@ class EventController extends Controller
             }
         }
         $newEvent->save();
+        
+        $newsletteradress = Newsletteradress::all();
+        $eventdata = [
+            "titre"=>$rq->titre,
+            "description"=>$rq->description,
+            "date"=>$rq->date,
+            "heure"=>$rq->heure,
+        ];
+        foreach($newsletteradress as $adress){
+           
+            Mail::to('elvis@outlook.com')->send(new Eventcreate($eventdata));
+
+            $newMail = new Emailsended;
+            $newMail->object = "Crétation d'un nouvel event! ";
+            $newMail->classe_id = null;
+            $newMail->destinataire = $adress->email;
+            $newMail->typemail = "event";
+            $newMail->user_id = null;
+            $newMail->lu = false;
+            $newMail->texte = [$rq->titre,$rq->description,$rq->date,$rq->heure];
+            $newMail->save();
+        }
+
 
         return redirect()->route('events.index')->with('success','Event modifié avec succès');
 
@@ -74,7 +103,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return view('back.pages.home-page.sections.event.show', compact('event'));
+        return view('back.event.show', compact('event'));
     }
 
     /**
@@ -85,7 +114,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return view('back.pages.home-page.sections.event.edit', compact('event'));
+        return view('back.event.edit', compact('event'));
 
     }
 

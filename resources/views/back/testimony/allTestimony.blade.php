@@ -11,7 +11,9 @@
 
 @section('backContent')
     <div class="container">
-
+        <div class="d-flex justify-content-end m-3">
+            <a href="{{route('layoutTestimonies')}}" class="btn btn-info text-light">Voir l'apercu</a>
+        </div>
         <h2 class="text-center fs-2">Toute les données de testimony</h2>
 
 

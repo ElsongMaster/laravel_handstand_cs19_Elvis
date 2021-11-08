@@ -15,7 +15,7 @@ class PackageController extends Controller
     public function index()
     {
         $packages = Package::all();
-        return view('back.pages.home-page.sections.packages.allPackage',compact('packages'));
+        return view('back.packages.allPackage',compact('packages'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        return  view('back.pages.home-page.sections.packages.create');
+        return  view('back.packages.create');
     }
 
     /**
@@ -75,7 +75,7 @@ class PackageController extends Controller
      */
     public function show(Package $package)
     {
-        return view('back.pages.home-page.sections.packages.show',compact('packages'));
+        return view('back.packages.show',compact('packages'));
     }
 
     /**
@@ -86,7 +86,7 @@ class PackageController extends Controller
      */
     public function edit(Package $package)
     {
-        return view('back.pages.home-page.sections.packages.edit',compact('package'));
+        return view('back.packages.edit',compact('package'));
     }
 
     /**

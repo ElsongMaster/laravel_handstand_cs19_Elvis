@@ -17,9 +17,22 @@ class SliderController extends Controller
     {
         $sliders = Slider::orderBy('selected','DESC')->get();
 
-        return view('back.pages.home-page.sections.slider.allSlider',compact('sliders'));
+        return view('back.slider.allSlider',compact('sliders'));
         
     }
+
+
+    public function layoutslider()
+    {
+        // dd('dans ma fonction');
+        $sliders = Slider::orderBy('selected','DESC')->get();
+
+        return view('back.slider.layoutSlider',compact('sliders'));
+        
+    }
+
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -50,7 +63,7 @@ class SliderController extends Controller
      */
     public function show(Slider $slider)
     {
-        return view('back.pages.home-page.sections.slider.show',compact('slider'));
+        return view('back.slider.show',compact('slider'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Footerdata;
 use App\Models\Newsletteradress;
 use Illuminate\Database\Seeder;
 
@@ -40,6 +41,8 @@ class DatabaseSeeder extends Seeder
             HeureSeeder::class,
             JourSeeder::class,
             TitretimeSeeder::class,
+            MapSeeder::class,
+            FooterdataSeeder::class,
 
 
         ]);
