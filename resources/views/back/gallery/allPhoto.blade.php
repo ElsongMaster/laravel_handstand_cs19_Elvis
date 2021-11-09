@@ -10,6 +10,10 @@
 
 
 @section('backContent')
+
+  <div class="d-flex justify-content-end m-3">
+      <a href="{{route('layoutGalleries')}}" class="btn btn-info text-light">Voir l'apercu</a>
+  </div>
 <div class="d-flex flex-wrap justify-content-evenly m-5">
 @foreach ($photos as $photo )
     

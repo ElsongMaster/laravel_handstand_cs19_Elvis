@@ -90,6 +90,7 @@ Route::get('/paiement/{package}', function (Package $package) {
 Route::resource('sliders', SliderController::class);
 Route::resource('classes', ClasseController::class);
 Route::post('classes/{classeId}/{userId}/inscription',[ClasseController::class,'inscription'])->name('inscription');
+Route::get('classes/{classe}/showClass',[ClasseController::class,'showClass'])->name('classes.showClasse');
 Route::post('classes/{classeId}/{userId}/désinscription',[ClasseController::class,'desinscription'])->name('désinscription');
 Route::post('sliders/updateSelected', [SliderController::class,'updateSelected'])->name('update2');
 //  Route::get('sliders/print', [SliderController::class,'layoutslider']);
@@ -206,7 +207,7 @@ Route::post('sliders/updateSelected', [SliderController::class,'updateSelected']
         return view('back.event.layoutEvent',compact('titreEvent','events'));
         
     })->name('layoutEvents');
-    
+
      Route::get('/layoutTestimony', function()
     {
         

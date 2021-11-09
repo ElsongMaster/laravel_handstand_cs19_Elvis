@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -15,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        
+        $users = User::paginate(10);
+        return view('back.user.allUser',compact('users'));
     }
 
     /**
@@ -25,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.user.create');
     }
 
     /**
@@ -36,7 +38,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "name"=>['required'],
+            "email"=>['required'],
+            "password"=>['required'],
+
+        ]);
+    
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+        return redirect()->back()->with('success','le nouveau utilisateur à bien été crée');
     }
 
     /**
@@ -47,7 +63,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('back.user.show',compact('user'));
+
     }
 
     /**
@@ -58,7 +75,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('back.user.edit',compact('user'));
     }
 
     /**
@@ -80,7 +97,7 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
 
         $user->save();
 
@@ -95,6 +112,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        
+        return redirect()->back()->with('success',"l'utilisateur a bien été supprimé");
     }
 }

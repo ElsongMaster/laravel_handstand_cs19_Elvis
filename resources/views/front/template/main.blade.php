@@ -25,7 +25,7 @@
     </head>
     <body>
         @include('front.partials.home-page.header')
-        @if(!Route::is('home') )
+        @if(!Route::is('classes.showClasse') && !Route::is('home'))
            @include('front.partials.bannerModel')
         @endif
         

@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class=" {{$classe->color ==="green"?'green':''}} {{$classe->color ==="orange"?'orange':''}}  {{$classe->color ==="red"?'red':''}} single-content  " >
-                                <h3><a href="{{route('class')}}">{{$classe->nom}}</a></h3>
+                                <h3><a href="{{route('classes.showClasse',$classe->id)}}">{{$classe->nom}}</a></h3>
                                 <ul>
                                     <li><i class="zmdi zmdi-face"></i>{{$classe->coach->user->name}}</li>
                                     <li><i class="zmdi zmdi-alarm"></i>{{$classe->horaire}}</li>

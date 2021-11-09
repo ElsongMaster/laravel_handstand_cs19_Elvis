@@ -45,7 +45,7 @@
         </li>
 
         <li>
-            <a href="{{route('galleries.index')}}" class="text-light">
+            <a href="{{route('layoutGalleries')}}" class="text-light">
                <i class='bx bx-folder-open' ></i>
                 <span class="links_name">Gallery</span>
             </a>
@@ -96,16 +96,23 @@
         </li>
 
         <li>
-            <a href="" class="text-light">
-                <i class='bx bxs-user-detail'></i>
-                <span class="links_name">Users2</span>
+            <a href="{{route('emailsendeds.index')}}" class="text-light">
+               <i class='bx bx-mail-send'></i>
+                <span class="links_name">Mailbox</span>
             </a>
-            <span class="tooltip">Users</span>
+            <span class="tooltip">Mailbox</span>
         </li>
         <li>
-            <a href="" class="text-light">
+            <a href="{{route('newsletteradresses.index')}}" class="text-light">
+                <i class='bx bx-at'></i>
+                <span class="links_name">Newsletter</span>
+            </a>
+
+        </li>
+        <li>
+            <a href="{{route('users.index')}}" class="text-light">
                 <i class='bx bxs-user-detail'></i>
-                <span class="links_name">Users2</span>
+                <span class="links_name">Users</span>
             </a>
             <span class="tooltip">Users</span>
         </li>

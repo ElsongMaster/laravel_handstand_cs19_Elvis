@@ -13,6 +13,9 @@ use App\Models\Newsletteradress;
 use App\Models\Package;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Footerdata;
+use App\Models\Header;
+use App\Models\Map;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -132,6 +135,22 @@ class ClasseController extends Controller
     public function show(Classe $classe)
     {
         return view('back.classe.show',compact('classe'));
+
+    }
+    /**
+     * Display the specified resource for the front class.
+     *
+     * @param  \App\Models\Classe  $classe
+     * @return \Illuminate\Http\Response
+     */
+    public function showClass(Classe $classe)
+    {
+         $map = Map::first();
+        $footerdatas = Footerdata::all();
+
+        $recentClasses = Classe::take(2)->orderBy('date','ASC')->get();
+        $header = Header::first();
+        return view('back.classe.showClasse',compact('classe','map','footerdatas','recentClasses','header'));
 
     }
 

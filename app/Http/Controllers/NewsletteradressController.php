@@ -18,7 +18,7 @@ class NewsletteradressController extends Controller
     public function index()
     {
         $newsletteradresses = Newsletteradress::all();
-        return view('back.pages.home-page.newsletteradress.allNewsletteradress', compact('newsletteradresses'));
+        return view('back.newsletteradress.allNewsletteradress', compact('newsletteradresses'));
     }
 
     /**
@@ -85,7 +85,7 @@ class NewsletteradressController extends Controller
      */
     public function edit(Newsletteradress $newsletteradress)
     {
-        //
+        return view('back.newsletteradress.edit',compact('newsletteradress'));
     }
 
     /**
@@ -95,9 +95,18 @@ class NewsletteradressController extends Controller
      * @param  \App\Models\Newsletteradress  $newsletteradress
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Newsletteradress $newsletteradress)
+    public function update(Request $rq, Newsletteradress $newsletteradress)
     {
-        //
+        $rq->validate([
+            "email"=>"required",
+        ]);
+
+
+        $newsletteradress->email = $rq->email;
+        $newsletteradress->save();
+
+        return redirect()->route('newsletteradresses.index')->with("success","adress de la newsletter correctement mise à jour");
+
     }
 
     /**
