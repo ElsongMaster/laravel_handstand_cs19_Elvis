@@ -18,7 +18,7 @@ class SliderSeeder extends Seeder
             [
                 "image"=>"slider1.jpg",
                 "titre"=>"Welcome Our Handstand",
-                "soustitre"=>"Keep Your Body",
+                "soustitre"=>"Keep (Refresh & Strong) Your Body",
                 "span"=>"Refresh & Strong",
                 "texte"=>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer auctor pharetra iss neque. Nullam cursus elit sit amet justo interdum facilisis id at tortor.",
                 "btn"=>"read more",

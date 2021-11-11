@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 
     <link href="{{asset('vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-	{{-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> --}}
+	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> 
 	{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> --}}
-{{-- <link href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css" rel="stylesheet"> --}}
+	{{--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{{-- <link href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css" rel="stylesheet"> 
 <script src="{{asset('js/app.js')}}"></script>
 {{-- <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.js"></script>
@@ -49,7 +49,63 @@
         </div>
     </div>
 
+    <script>
+            var tabBtnCloses = Array.from(document.getElementsByClassName("close"));
+             console.log(tabBtnCloses);
+            tabBtnCloses.forEach((elt) => {
+                elt.addEventListener("click", () => {
+                    elt.parentNode.classList.add("hidden-msg");
+                });
+            });
 
+            var tabBtnCloses = Array.from(document.getElementsByClassName("close"));
+            // console.log(tabBtnCloses);
+            tabBtnCloses.forEach((elt) => {
+                elt.addEventListener("click", () => {
+                    elt.parentNode.classList.add("hidden-msg");
+                });
+            });
+
+
+            function changeColorTitel(){
+                var $titels = Array.from(document.getElementsByClassName('titel'));
+                
+                 $titels.forEach(elt => {
+                    if(elt.innerText.includes('(') && elt.innerText.includes(')')){
+
+                        var index1 = elt.innerText.indexOf('(');
+                        var index2 = elt.innerText.indexOf(')');
+                        elt.innerText = elt.innerText.replace('(','')
+                        elt.innerText = elt.innerText.replace(')','')
+                        var str = elt.innerText.substr(index1,index2)
+                        if(elt.classList.contains('errorStr')){
+                            str = str.split(' ');
+                            str = str.slice(0,str.length-2)
+                            str = str.join(" ");
+                        }
+                        var str2 = elt.innerText.substr(0,index1)
+                        console.log(str)
+                        console.log(str2)
+                        elt.innerHTML = elt.innerText.substr(0,index1)+str.fontcolor("#5fc7ae")+" "+elt.innerText.substr(index2)
+                        
+                    }
+                 });
+
+
+            }
+            changeColorTitel();
+    </script>
+        <style>
+            .hidden-msg{
+                display: none;
+
+            }
+
+            .colorTitle{
+                color: #5fc7ae;
+            }
+
+        </style>
 
    {{-- <script src="{{asset('js/app.js')}}"></script> --}}
    <script src="{{asset('js/tailwind.js')}}"></script>

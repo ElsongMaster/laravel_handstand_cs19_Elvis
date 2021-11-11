@@ -6,6 +6,7 @@ use App\Mail\Eventcreate;
 use App\Models\Emailsended;
 use App\Models\Event;
 use App\Models\Newsletteradress;
+use App\Models\Titre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -21,6 +22,24 @@ class EventController extends Controller
         $events = Event::all();
 
         return view('back.event.allEvent',compact('events'));
+    }
+    /**
+     * Display a preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutEvent()
+    {
+        
+        $titreEvent = Titre::find(6);
+        
+        
+        $events = Event::orderBy('selected','DESC')->take(1)->get();
+
+
+
+        return view('back.event.layoutEvent',compact('titreEvent','events'));
+        
     }
 
     /**
@@ -90,7 +109,7 @@ class EventController extends Controller
         }
 
 
-        return redirect()->route('events.index')->with('success','Event modifié avec succès');
+        return redirect()->route('events.index')->with('success','Event crée avec succès');
 
         
     }

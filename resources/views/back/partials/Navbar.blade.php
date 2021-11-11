@@ -7,7 +7,16 @@
     </div>
     <ul class="nav-list ">
 
+        @can('coachLead_access')
+            
 
+        <li>
+            <a href="{{route('titres.index')}}" class="text-light">
+           <i class='bx bx-info-square' ></i>
+            <span class="links_name">Titres</span>
+            </a>
+            <span class="tooltip">Titres</span>
+        </li>
         <li>
             <a href="{{route('headers.index')}}" class="text-light">
            <i class='bx bx-heading'></i>
@@ -16,7 +25,7 @@
             <span class="tooltip">Header</span>
         </li>
         <li>
-            <a href="/slide" class="text-light">
+            <a href="/back/slide" class="text-light">
                <i class='bx bx-slideshow'></i>
                 <span class="links_name">Slider</span>
             </a>
@@ -29,6 +38,9 @@
             </a>
             <span class="tooltip">About</span>
         </li>
+        @endcan
+        {{-- @can('user') --}}
+            
         <li>
             <a href="{{route('layoutClasses')}}" class="text-light">
                 <i class='bx bx-group' ></i>
@@ -36,6 +48,10 @@
             </a>
             <span class="tooltip">Classes</span>
         </li>
+        {{-- @endcan --}}
+        @can('coachLead_access')
+            
+        
         <li>
             <a href="{{route('layoutTrainers')}}" class="text-light">
                 <i class='bx bx-user-circle'></i>
@@ -79,21 +95,7 @@
             </a>
             <span class="tooltip">Testimonies</span>
         </li>
-        <li>
-            <a href="" class="text-light">
-               <i class='bx bxl-blogger'></i>
-                <span class="links_name">Blog</span>
-            </a>
-            <span class="tooltip">Blog</span>
-        </li>
-        <li>
-            <a href="" class="text-light">
-                <i class='bx bxs-contact' ></i>
-               
-                <span class="links_name">Contact</span>
-            </a>
-            <span class="tooltip">Contact</span>
-        </li>
+
 
         <li>
             <a href="{{route('emailsendeds.index')}}" class="text-light">
@@ -109,6 +111,9 @@
             </a>
 
         </li>
+        @endcan
+        {{-- @can('user') --}}
+            
         <li>
             <a href="{{route('users.index')}}" class="text-light">
                 <i class='bx bxs-user-detail'></i>
@@ -116,6 +121,7 @@
             </a>
             <span class="tooltip">Users</span>
         </li>
+        {{-- @endcan --}}
 
 
 

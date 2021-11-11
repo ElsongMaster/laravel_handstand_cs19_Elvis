@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Package;
+use App\Models\Titre;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
@@ -16,6 +17,21 @@ class PackageController extends Controller
     {
         $packages = Package::all();
         return view('back.packages.allPackage',compact('packages'));
+    }
+    /**
+     * Display a preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutPackage()
+    {
+        
+        
+        $titrePricing = Titre::find(7);
+        $packages = Package::all();
+
+        return view('back.packages.layoutPackage',compact('packages','titrePricing'));
+        
     }
 
     /**
@@ -62,7 +78,7 @@ class PackageController extends Controller
         $package->save();
 
 
-        return redirect()->route('package.index')->with('success','Le package a bien été mise à jour');
+        return redirect()->route('packages.index')->with('success','Un nouveau package a correctement été créé');
 
         
     }
@@ -123,7 +139,7 @@ class PackageController extends Controller
         $package->save();
 
 
-        return redirect()->route('package.index')->with('success','Les données du packages ont bien été mise à jour');
+        return redirect()->route('packages.index')->with('success','Les données du packages ont bien été mise à jour');
 
         
 

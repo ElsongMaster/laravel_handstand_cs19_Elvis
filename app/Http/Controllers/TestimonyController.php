@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimony;
+use App\Models\Titre;
 use Illuminate\Http\Request;
 
 class TestimonyController extends Controller
@@ -16,6 +17,24 @@ class TestimonyController extends Controller
     {
         $testimonies = Testimony::all();
         return view('back.testimony.allTestimony',compact('testimonies'));
+    }
+    /**
+     * Display a preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutTestimony()
+    {
+        
+        $titreClient = Titre::find(8);
+        
+        
+        $testimonies = Testimony::all();
+
+
+
+        return view('back.testimony.layoutTestimony',compact('titreClient','testimonies'));
+        
     }
 
     /**

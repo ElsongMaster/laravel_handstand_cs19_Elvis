@@ -14,7 +14,7 @@ class EmailsendedController extends Controller
      */
     public function index()
     {
-        $emails = Emailsended::all();
+        $emails = Emailsended::orderBy('created_at','DESC')->get();
         return view('back.mailbox.allMail', compact('emails'));
         
     }
@@ -115,6 +115,8 @@ class EmailsendedController extends Controller
      */
     public function destroy(Emailsended $emailsended)
     {
-        //
+        $emailsended->delete();
+
+        return redirect()->back()->with('success','email supprimer avec succés');
     }
 }

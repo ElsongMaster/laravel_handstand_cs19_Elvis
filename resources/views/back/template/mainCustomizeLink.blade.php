@@ -58,6 +58,62 @@
    <script src="{{asset('js/app.js')}}"></script>
    {{-- <script src="{{asset('js/tailwind.js')}}"></script> --}}
     <script src="{{asset('js/main.js')}}"></script>
+    <script>
+            var tabBtnCloses = Array.from(document.getElementsByClassName("close"));
+             console.log(tabBtnCloses);
+            tabBtnCloses.forEach((elt) => {
+                elt.addEventListener("click", () => {
+                    elt.parentNode.classList.add("hidden-msg");
+                });
+            });
 
+            var tabBtnCloses = Array.from(document.getElementsByClassName("close"));
+            // console.log(tabBtnCloses);
+            tabBtnCloses.forEach((elt) => {
+                elt.addEventListener("click", () => {
+                    elt.parentNode.classList.add("hidden-msg");
+                });
+            });
+
+
+            function changeColorTitel(){
+                var $titels = Array.from(document.getElementsByClassName('titel'));
+                
+                 $titels.forEach(elt => {
+                    if(elt.innerText.includes('(') && elt.innerText.includes(')')){
+
+                        var index1 = elt.innerText.indexOf('(');
+                        var index2 = elt.innerText.indexOf(')');
+                        elt.innerText = elt.innerText.replace('(','')
+                        elt.innerText = elt.innerText.replace(')','')
+                        var str = elt.innerText.substr(index1,index2)
+                        if(elt.classList.contains('errorStr')){
+                            str = str.split(' ');
+                            str = str.slice(0,str.length-2)
+                            str = str.join(" ");
+                        }
+                        var str2 = elt.innerText.substr(0,index1)
+                        console.log(str)
+                        console.log(str2)
+                        elt.innerHTML = elt.innerText.substr(0,index1)+str.fontcolor("#5fc7ae")+" "+elt.innerText.substr(index2)
+                        
+                    }
+                 });
+
+
+            }
+            changeColorTitel();
+    </script>
+        <style>
+            .hidden-msg{
+                display: none;
+
+            }
+
+            .colorTitle{
+                color: #5fc7ae;
+            }
+
+        </style>
 </body>
 </html>

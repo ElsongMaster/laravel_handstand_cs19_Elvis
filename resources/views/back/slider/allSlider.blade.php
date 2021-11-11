@@ -12,7 +12,7 @@
 @section('backContent')
     <div class="container">
     <div class="d-flex justify-content-end m-3">
-        <a href="/slide" class="btn btn-info text-light">Voir l'apercu</a>
+        <a href="/back/slide" class="btn btn-info text-light">Voir l'apercu</a>
     </div>
         <h2 class="text-center fs-2">Toute les données du slider</h2>
     <form action="{{route('update2')}}" method="post"  class="w-50 my-5">
@@ -52,8 +52,8 @@
                             <form action="{{route('sliders.destroy', $slider->id)}}" method="POST" class="d-flex justify-content-center">
                                 @method('DELETE')
                                 @csrf
-                                    <a href="{{route('sliders.edit',$slider->id)}}" class="btn btn-warning my-2 mr-2">EDIT</a>
-                                    <button type="button" class="btn btn-danger my-2">DELETE</button>
+                                    <a href="{{route('sliders.edit',$slider->id)}}" class="btn btn-warning my-2 mr-2"><i class="fas fa-edit"></i></a>
+                                    <button type="submit" class="btn btn-danger my-2"><i class="fas fa-trash-alt"></i></button>
                             </form>
                 
                         </div>

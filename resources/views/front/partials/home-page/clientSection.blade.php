@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">
                         <div class="section-title text-center">
-                            <h2>{{$titreClient->titre}} <span class="span">client</span> say</h2>
+                            <h2 class="titel">{{$titreClient->titre}} <span class="span">client</span> say</h2>
                             <p>{{$titreClient->description}} </p>
                         </div>
                     </div>

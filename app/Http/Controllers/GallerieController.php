@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Gallerie;
+use App\Models\Titre;
 use Illuminate\Http\Request;
 
 class GallerieController extends Controller
@@ -16,6 +17,25 @@ class GallerieController extends Controller
     {
         $photos = Gallerie::all();
         return view('back.gallery.allPhoto',compact('photos'));
+    }
+    /**
+     * Display a preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutGallery()
+    {
+        
+        
+         $titreGallery = Titre::find(5);
+
+
+        $galleries = Gallerie::take(6)->inRandomOrder()->get();
+
+
+
+        return view('back.gallery.layoutGallery',compact('galleries','titreGallery'));
+        
     }
 
     /**

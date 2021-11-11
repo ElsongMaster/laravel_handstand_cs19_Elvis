@@ -45,7 +45,7 @@
                                         <h3><a href="{{route('class')}}">{{$classe->nom}}</a></h3>
                                         <ul>
                                             <li class="p-0 m-0"><i class="zmdi zmdi-face"></i>{{$classe->coach->user->name}}</li>
-                                            <li><i class="zmdi zmdi-alarm"></i>{{$classe->horaire}}</li>
+                                            <li><i class="zmdi zmdi-alarm"></i>{{$classe->jour->heure->creneau}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -56,22 +56,7 @@
                         <div class="col-md-4 hidden-sm col-xs-12">
                             <div class="single-footer-widget">
                                 <h3>{{$footerdata->titre2}}</h3>
-                                {{-- <form id="subscribe-form" action="{{route('storeContact')}}" method="POST">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <input type="text" placeholder="Name" name="name">
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" placeholder="Email" name="email">
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <textarea cols="30" rows="7" name="subject" placeholder="subject"></textarea>
-                                            <button type="submit">submit</button>
-                                            <p class="subscribe-message"></p>
-                                        </div>
-                                    </div>
-                                </form> --}}
+
                                 <form action="{{route('storeContact')}}" method="POST">
                                 @csrf
                                 <div class="row">
@@ -85,7 +70,6 @@
                                         <div class="col-sm-12">
                                             <textarea cols="30" rows="7" name="subject" placeholder="subject"></textarea>
                                             <button type="submit">submit</button>
-                                            {{-- <p class="subscribe-message"></p> --}}
                                         </div>
                                 </div>
 

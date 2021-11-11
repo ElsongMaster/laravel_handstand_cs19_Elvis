@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\Titre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
@@ -15,6 +17,23 @@ class AboutController extends Controller
     public function index()
     {
         //
+    }
+    /**
+     * Display preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutAbout()
+    {
+        
+        
+        $abouts = About::all();
+
+        $titreAbout = Titre::first();
+
+
+        return view('back.about.layoutAbout',compact('abouts','titreAbout'));
+        
     }
 
     /**
@@ -57,7 +76,7 @@ class AboutController extends Controller
      */
     public function edit(About $about)
     {
-        //
+        return view('back.about.edit',compact('about'));
     }
 
     /**
@@ -67,9 +86,30 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, About $about)
+    public function update(Request $rq, About $about)
     {
-        //
+        $rq->validate([
+            "p1"=>["required"],
+            "p2"=>["required"],
+            "btn"=>["required"],
+            "video"=>["required"],
+        ]);
+        if($rq->file('image') !== null){
+            
+            // Storage::disk('public')->delete('img/about/'.$about->image);
+            $about->image = $rq->file('image')->hashName();
+            $rq->file('image')->storePublicly('img/about/', 'public');
+        }
+
+        $about->p1 = $rq->p1;
+        $about->p2 = $rq->p2;
+        $about->btn = $rq->btn;
+        $about->video = $rq->video;
+
+        $about->save();
+
+        return redirect()->route('abouts.show',$about->id);
+        
     }
 
     /**
@@ -80,6 +120,8 @@ class AboutController extends Controller
      */
     public function destroy(About $about)
     {
-        //
+        // Storage::disk('public')->delete('img/about/'.$about->image);
+        $about->delete();
+        return redirect()->back()->with('success','about correctement supprimer');
     }
 }

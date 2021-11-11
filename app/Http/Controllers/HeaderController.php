@@ -85,8 +85,12 @@ class HeaderController extends Controller
             $header->logo = $request->file('logo')->hashName();
             $request->file('logo')->storePublicly('img/logo/', 'public');
         }
-        $header->nom = $request->nom;
-        $header->poste = $request->poste;
+        $header->li1 = $request->li1;
+        $header->li2 = $request->li2;
+        $header->li3 = $request->li3;
+        $header->li4 = $request->li4;
+        $header->li5 = $request->li5;
+
         $header->save();
 
         return redirect()->route('headers.show',$header->id);
@@ -100,9 +104,9 @@ class HeaderController extends Controller
      */
     public function destroy(Header $header)
     {
-        Storage::disk('public')->delete('img/logo/'.$header->image);
+        // Storage::disk('public')->delete('img/logo/'.$header->image);
         $header->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','Header correctement supprimer');
         
     }
 }

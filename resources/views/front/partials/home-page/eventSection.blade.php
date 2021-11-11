@@ -6,7 +6,7 @@
                    
                     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">
                         <div class="section-title text-center">
-                            <h2>{{explode(" ",$titreEvent->titre)[0]}} <span class="span">{{explode(" ",$titreEvent->titre)[1]}}</span></h2>
+                            <h2 class="titel">{{explode(" ",$titreEvent->titre)[0]}} <span class="span">{{explode(" ",$titreEvent->titre)[1]}}</span></h2>
                             <p>{{$titreEvent->description}}</p>
                         </div>
                          @foreach ($events as $event )

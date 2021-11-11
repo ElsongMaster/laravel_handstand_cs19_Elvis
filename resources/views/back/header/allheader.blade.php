@@ -41,13 +41,13 @@
                         <div class="header-area ptb-18 header-sticky">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-2 col-xs-12">
+                                    <div class="col-md-2 col-xs-12 " style="width: 15%">
                                         <div class="logo">
                                             <a href=""><img src="{{asset('img/logo/'.$header->logo)}}" alt="COFFEE" /></a>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-xs-12">
-                                        <div class="content-wrapper">
+                                    <div class="col-md-8 col-xs-12 m-0" style="width: 65%">
+                                        <div class="content-wrapper"  >
                                             <!-- Main Menu Start -->
                                             <div class="main-menu text-center">
                                                 <nav>
@@ -65,7 +65,7 @@
                                             <!-- Main Menu End -->
                                         </div>
                                     </div>
-                                    <div class="col-md-2 hidden-sm hidden-xs">
+                                    <div class="col-md-2 hidden-sm hidden-xs m-0" style="width: 20%">
                                         <div class="header-contact text-right " style="transform: tanslateX(40px);">
                                             {{-- <a class="banner-btn" data-text="contact" href="{{route('contact')}}"><span>contact</span></a> --}}
                                             @if (Route::has('login'))

@@ -34,12 +34,12 @@ class HomeController extends Controller
         $titreClient = Titre::find(8);
         $header = Header::first();
         $sliders = Slider::orderBy('selected','DESC')->get();
-        $about = About::first();
+        $abouts = About::all();
         $packages = Package::all();
-        $classes = Classe::take(3)->orderBy('prioritaire','DESC')->get();
+        $classes = Classe::where('validate','=',true)->orderBy('prioritaire','DESC')->take(3)->get();
         $coaches = Coach::all();
         $coachLead = null;
-        $galleries = Gallerie::take(6)->inRandomOrder()->get();
+        $galleries = Gallerie::limit(9)->inRandomOrder()->get();
         $events = Event::orderBy('selected','DESC')->take(1)->get();
         $testimonies = Testimony::all();
         
@@ -47,7 +47,7 @@ class HomeController extends Controller
         Carbon::now();
         $semaines = Semaine::paginate(1);
         $titretimes = Titretime::all();
-        $recentClasses = Classe::take(2)->orderBy('date','ASC')->get();
+        $recentClasses = Classe::where('validate','=',true)->take(2)->orderBy('date','ASC')->get();
         
         $footerdatas = Footerdata::all();
         foreach($coaches as $coach){
@@ -61,6 +61,6 @@ class HomeController extends Controller
            $coachesWithoutLead = $coaches; 
         }
         $count = 1;
-        return view('front.pages.home',compact('header','sliders','about','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count','galleries','events','testimonies','map','semaines','titretimes','recentClasses','footerdatas'));
+        return view('front.pages.home',compact('header','sliders','abouts','titreAbout','titreClass','titreSchedule','titreTrainer','titreGallery','titreEvent','titrePricing','titreClient','packages','classes','coaches','coachLead','coachesWithoutLead','count','galleries','events','testimonies','map','semaines','titretimes','recentClasses','footerdatas'));
     }
 }

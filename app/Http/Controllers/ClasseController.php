@@ -15,7 +15,11 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Models\Footerdata;
 use App\Models\Header;
+use App\Models\Heure;
+use App\Models\Jour;
 use App\Models\Map;
+use App\Models\Semaine;
+use App\Models\Titre;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,9 +49,25 @@ class ClasseController extends Controller
             $class->save();
         }
 
-        $classes = Classe::orderByRaw("FIELD(color , 'green', 'orange', 'red') ASC")->get();
-        return view('back.classe.allClasse',compact('classes'));
+        $classes = Classe::where('validate','=',true)->orderByRaw("FIELD(color , 'green', 'orange', 'red') DESC")->get();
+        $classesNonValide =  Classe::where('validate','!=',true)->orderByRaw("FIELD(color , 'green', 'orange', 'red') DESC")->get();
+        return view('back.classe.allClasse',compact('classes','classesNonValide'));
 
+    }
+    /**
+     * Display a preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutClasse()
+    {
+        
+        $classes = Classe::where('validate','=',true)->orderBy('prioritaire','DESC')->take(3)->get();
+
+        $titreClass = Titre::find(2);
+
+        return view('back.classe.layoutClasse',compact('classes','titreClass'));
+        
     }
 
     /**
@@ -57,10 +77,14 @@ class ClasseController extends Controller
      */
     public function create()
     {
+        $this->authorize('coach_create_classe');
+        $semaines = Semaine::all();
+        $heures = Heure::all();
+        $jours = Jour::all();
         $packages = Package::all();
         $tags = Tag::all();
         $categories = Categorie::all();
-        return view('back.classe.create', compact('tags','categories','packages'));
+        return view('back.classe.create', compact('tags','categories','packages','semaines','heures','jours'));
     }
 
     /**
@@ -71,29 +95,45 @@ class ClasseController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('coach_create_classe');
         $request->validate([
             "image"=>['required'],
             "nom"=>['required'],
-            "horaire"=>['required'],
+            "tags"=>['required'],
+            "packages"=>['required'],
             "categorie_id"=>['required'],
+            "semaine"=>['required'],
+            "heure"=>['required'],
+            "jour"=>['required'],
             "date"=>['required'],
         ]);
         $classe = new Classe;
         $classe->image = $request->file('image')->hashName();
         $request->file('image')->storePublicly('img/class/', 'public');
         $classe->nom = $request->nom;
-        $classe->package = $request->package;
-        $classe->coach_id = 1;
-        $classe->horaire = $request->horaire;
+        $classe->package = $request->packages;
+        $classe->coach_id = Auth::user()->id;
         $classe->categorie_id = $request->categorie_id;
         $classe->prioritaire = $request->prioritaire;
+        $classe->validate = false;
         if($request->prioritaire === 1){
              $classe->color= "green";
         }
         $classe->date = $request->date;
         $classe->save();
+        // dd($request->tags);
+        // $arrayTags = $request->tags;
+        foreach($request->tags as $tagId){
+            $newEntry = new ClasseTag;
+            $newEntry->classe_id = $classe->id;
+            $newEntry->tag_id =intval($tagId);
+            $newEntry->save();
+        }
 
+        $jourDucours = Jour::find(intval($request->jour));
+        $jourDucours->classe_id = $classe->id;
 
+        $jourDucours->save();
         
         $newsletteradress = Newsletteradress::all();
         $dataClasse = [
@@ -105,7 +145,7 @@ class ClasseController extends Controller
             "date"=>$classe->date,
         ];
 
-        $users = User::where('role_id','=',4)->take(4)->get();
+        // $users = User::where('role_id','=',4)->take(4)->get();
 
 
         foreach($newsletteradress as $adress){
@@ -148,7 +188,7 @@ class ClasseController extends Controller
          $map = Map::first();
         $footerdatas = Footerdata::all();
 
-        $recentClasses = Classe::take(2)->orderBy('date','ASC')->get();
+        $recentClasses = Classe::where('validate','=',true)->take(2)->orderBy('date','ASC')->get();
         $header = Header::first();
         return view('back.classe.showClasse',compact('classe','map','footerdatas','recentClasses','header'));
 
@@ -162,7 +202,9 @@ class ClasseController extends Controller
      */
     public function edit(Classe $class)
     {
-        
+        $semaines =  Semaine::all();
+        $heures = Heure::all();
+
         $tags = Tag::all();
         $categories = Categorie::all();
         $tagToSelected = [];
@@ -171,7 +213,7 @@ class ClasseController extends Controller
                 array_push($tagToSelected,$tag->id);
             }
         }
-        return view('back.classe.edit',compact('class','categories','tags','tagToSelected'));
+        return view('back.classe.edit',compact('class','categories','tags','tagToSelected','semaines','heures'));
 
     }
 
@@ -187,7 +229,7 @@ class ClasseController extends Controller
         $request->validate([
             "nom"=>['required'],
             "coach_id"=>['required'],
-            "horaire"=>['required'],
+            
             "categorie_id"=>['required'],
             "tags"=>['required'],
             "prioritaire"=>['required'],
@@ -265,7 +307,7 @@ class ClasseController extends Controller
     public function inscription($classeId, $userId){
         $msg= "Inscription impossible vous êtes déjà inscrit à cette classe";
         $tagMsg = 'error';
-        $userConnected = User::find($userId);
+        $userConnected = User::find(intval($userId));
         $currentClasseIdsUser = [];
         foreach($userConnected->classes as $classe){
             array_push($currentClasseIdsUser, $classe->id);
@@ -274,9 +316,9 @@ class ClasseController extends Controller
         if($userConnected->role->nom ==='user'){
 
             if(!in_array($classeId,$currentClasseIdsUser)){
-                $classeToSubscribe= Classe::find($classeId);
-
-                if(in_array($userConnected->package->nom, $classeToSubscribe->package)){
+                $classeToSubscribe= Classe::find(intval($classeId));
+                
+                if($userConnected->package!=null &&in_array($userConnected->package->nom, $classeToSubscribe->package)){
                     if($classeToSubscribe->users->count()<15){
 
                         $newInscritpion = new ClasseUser;
@@ -343,15 +385,27 @@ class ClasseController extends Controller
      */
     public function desinscription($classeId, $userId){
         $msg = "Vous n'êtes pas inscrit dans cette classe";
+        $tagMsg = "error";
+        // dd($classeId,$userId);
         foreach(ClasseUser::all() as $inscrit){
-
-            if($inscrit->classe_id === $classeId && $inscrit->user_id === $userId ){
+            if($inscrit->classe_id == $classeId && $inscrit->user_id == $userId ){
                 $inscrit->delete();
                 $msg = 'Votre désinscription à bien été pris en compte';
+                $tagMsg = "success";
+                
             }
         }
-        return redirect()->back()->with('error',$msg);
+        return redirect()->back()->with($tagMsg,$msg);
         
 
+    }
+
+    public function validateClasse(Classe $classe)
+    {
+        $this->authorize('coach_validate');
+
+        $classe->validate = true;
+        $classe->save();
+        return redirect()->back()->with('success', 'La classe a bien été validé');
     }
 }

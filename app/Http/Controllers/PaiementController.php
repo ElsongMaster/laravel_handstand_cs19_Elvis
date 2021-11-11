@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use App\Models\Paiement;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -117,5 +118,27 @@ class PaiementController extends Controller
     public function destroy(Paiement $paiement)
     {
         //
+    }
+
+    /**
+     * Check data user and validate paiement of user.
+     *
+     * @param  \App\Models\Package  $package
+     * @return \Illuminate\Http\Response
+     */
+    public function validatePaiement(Package $package)
+    {
+
+            $userIdConnected = Auth::user()->id;
+            $packageIdsUser = [];
+            foreach($package->users as $user){
+                array_push($packageIdsUser,$user->id);
+            }
+            if(!in_array($userIdConnected,$packageIdsUser)){
+
+                return view('front.pages.paiement',compact('package'));
+            }else{
+                return view('front.pages.modalPackageAlreadyExist');
+            }
     }
 }

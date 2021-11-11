@@ -22,12 +22,12 @@ class JourSeeder extends Seeder
             
             [
                 "nom"=>"",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>null,
                 "heure_id"=>1,
             ],
             [
                 "nom"=>"saturday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>1,
                 "heure_id"=>1,
             ],
             [
@@ -42,7 +42,7 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"tuesday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>2,
                 "heure_id"=>1,
             ],
             [
@@ -52,7 +52,7 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"thursday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>3,
 
                 "heure_id"=>1,
             ],
@@ -79,7 +79,7 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"monday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>4,
                 "heure_id"=>2,
             ],
             [
@@ -89,7 +89,7 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"woensday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>5,
 
                 "heure_id"=>2,
             ],
@@ -116,7 +116,7 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"sunday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>6,
 
                 "heure_id"=>3,
             ],
@@ -132,7 +132,7 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"woensday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>7,
 
                 "heure_id"=>3,
             ],
@@ -143,20 +143,20 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"friday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>8,
 
                 "heure_id"=>3,
             ],
             
             [
                 "nom"=>"",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>null,
 
                 "heure_id"=>4,
             ],
             [
                 "nom"=>"saturday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>9,
 
                 "heure_id"=>4,
             ],
@@ -172,7 +172,7 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"tuesday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>10,
 
                 "heure_id"=>4,
             ],
@@ -183,12 +183,12 @@ class JourSeeder extends Seeder
             ],
             [
                 "nom"=>"thursday",
-                "classe_id"=>null,
+                "classe_id"=>11,
                 "heure_id"=>4,
             ],
             [
                 "nom"=>"friday",
-                "classe_id"=>$faker->numberBetween(1,Classe::all()->count()),
+                "classe_id"=>null,
                 "heure_id"=>4,
             ],
 

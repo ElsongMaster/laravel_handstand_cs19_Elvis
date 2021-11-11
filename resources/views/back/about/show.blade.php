@@ -19,8 +19,8 @@
             <form action="{{route('abouts.destroy', $about->id)}}" method="POST" class="d-flex justify-content-center">
                 @method('DELETE')
                 @csrf
-                    <a href="{{route('abouts.edit',$about->id)}}" class="btn btn-warning my-2 mr-2">EDIT</a>
-                    <button type="button" class="btn btn-danger my-2">DELETE</button>
+                    <a href="{{route('abouts.edit',$about->id)}}" class="btn btn-warning my-2 mr-2"><i class="fas fa-edit"></i></a>
+                    <button type="submit" class="btn btn-danger my-2"><i class="fas fa-trash-alt"></i></button>
               </form>
 
     

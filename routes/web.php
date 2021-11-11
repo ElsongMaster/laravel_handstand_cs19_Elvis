@@ -51,7 +51,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+//Affichage des pages front
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/class', [PgClassesController::class,'index'])->name('class');
 Route::get('/blog', [PgBlogController::class,'index'])->name('blog');
@@ -59,191 +59,90 @@ Route::get('/about-us', [PgAboutusController::class,'index'])->name('about');
 Route::get('/gallery', [PgGalleryController::class,'index'])->name('gallery');
 Route::get('/contact', [PgContactController::class,'index'])->name('contact');
 
-
+//Back
 Route::get('/back', function () {
     return view('back.pages.homeBack');
-})->name('back');
-
-
-
+})->middleware(['auth'])->name('back');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/paiement/{package}', function (Package $package) {
+//Slider
+Route::resource('sliders', SliderController::class)->middleware(['coach_lead']);
+Route::post('sliders/updateSelected', [SliderController::class,'updateSelected'])->middleware(['coach_lead'])->name('update2');
+Route::get('/back/slide', [SliderController::class,'layoutslider'])->middleware(['coach_lead']);
 
-        $userIdConnected = Auth::user()->id;
-        $packageIdsUser = [];
-        foreach($package->users as $user){
-            array_push($packageIdsUser,$user->id);
-        }
-        if(!in_array($userIdConnected,$packageIdsUser)){
+//Classe
+Route::resource('classes', ClasseController::class)->middleware(['user']);
+Route::post('classes/{classeId}/{userId}/inscription',[ClasseController::class,'inscription'])->middleware(['user'])->name('inscription');
+Route::get('back/layoutClasse',[ClasseController::class,'layoutClasse'])->middleware(['user'])->name('layoutClasses');
+Route::get('classes/{classe}/showClass',[ClasseController::class,'showClass'])->middleware(['user'])->name('classes.showClasse');
+Route::post('classes/{classeId}/{userId}/désinscription',[ClasseController::class,'desinscription'])->middleware(['user'])->name('désinscription');
+Route::get('classes/{classe}/validate',[ClasseController::class,'validateClasse'])->middleware(['user'])->name('classes.validate');
 
-            return view('front.pages.paiement',compact('package'));
-        }else{
-            return view('front.pages.modalPackageAlreadyExist');
-        }
-})->middleware(['auth'])->name('paiement');
+//Header
+Route::resource('headers', HeaderController::class)->middleware(['coach_lead']);
 
+//Titre
+Route::resource('titres', TitreController::class)->middleware(['coach_lead']);
 
-Route::resource('sliders', SliderController::class);
-Route::resource('classes', ClasseController::class);
-Route::post('classes/{classeId}/{userId}/inscription',[ClasseController::class,'inscription'])->name('inscription');
-Route::get('classes/{classe}/showClass',[ClasseController::class,'showClass'])->name('classes.showClasse');
-Route::post('classes/{classeId}/{userId}/désinscription',[ClasseController::class,'desinscription'])->name('désinscription');
-Route::post('sliders/updateSelected', [SliderController::class,'updateSelected'])->name('update2');
-//  Route::get('sliders/print', [SliderController::class,'layoutslider']);
- Route::get('/slide', function()
-    {
-        // dd('dans ma fonction');
-        $sliders = Slider::orderBy('selected','DESC')->get();
+//Trainer
+Route::resource('coaches', CoachController::class)->middleware(['coach']);
+Route::get('back/layoutTrainer', [CoachController::class,'layoutTrainer'])->middleware(['coach'])->name('layoutTrainers');
 
-        return view('back.slider.layoutSlider',compact('sliders'));
-        
-    });
- Route::get('/layoutClasse', function()
-    {
-        
-        $classes = Classe::orderBy('prioritaire','DESC')->get();
+//Linksocial
+Route::resource('linksocials', LinksocialController::class)->middleware(['coach_lead']);
+Route::post('linksocials/{linksocial}/{coachId}', [LinksocialController::class,'updateLink'])->middleware(['coach_lead'])->name('updateLink');
 
-        $titreClass = Titre::find(2);
+//User
+Route::resource('users', UserController::class)->middleware(['user']);
 
-        return view('back.classe.layoutClasse',compact('classes','titreClass'));
-        
-    })->name('layoutClasses');
+//Gallery
+Route::resource('galleries', GallerieController::class)->middleware(['coach_lead']);
+Route::get('back/layoutGallery', [GallerieController::class,'layoutGallery'])->middleware(['coach_lead'])->name('layoutGalleries');
 
- Route::get('/layoutAbout', function()
-    {
-        
-        
-        $about = About::first();
+//Testimony
+Route::resource('testimonies', TestimonyController::class)->middleware(['coach_lead']);
+Route::get('back/layoutTestimony', [TestimonyController::class,'layoutTestimony'])->middleware(['coach_lead'])->name('layoutTestimonies');
 
-        $titreAbout = Titre::first();
+//Package
+Route::resource('packages', PackageController::class)->middleware(['coach_lead']);
+Route::get('back/layoutPackage', [PackageController::class,'layoutPackage'])->middleware(['coach_lead'])->name('layoutPackage');
 
+//Paiement
+Route::resource('paiement', PaiementController::class)->middleware(['user']);
+Route::get('Validatepaiement/{package}', [PaiementController::class,'validatePaiement'])->middleware(['user'])->name('Validatepaiement');
 
-        return view('back.about.layoutAbout',compact('about','titreAbout'));
-        
-    })->name('layoutAbouts');
+//Emailsended
+Route::resource('emailsendeds', EmailsendedController::class)->middleware(['coach_lead']);
+Route::get('emailsendeds/{emailsended}/show2', [EmailsendedController::class,'show2'])->middleware(['coach_lead'])->name('emailsendeds.show2');
+Route::get('emailsendeds/{emailsended}/newslettershow', [EmailsendedController::class,'newslettershow'])->middleware(['coach_lead'])->name('emailsendeds.newslettershow');
+Route::get('emailsendeds/{emailsended}/contactshow', [EmailsendedController::class,'contactshow'])->middleware(['coach_lead'])->name('emailsendeds.contactshow');
+Route::get('emailsendeds/{emailsended}/eventshow', [EmailsendedController::class,'eventshow'])->middleware(['coach_lead'])->name('emailsendeds.eventshow');
 
- Route::get('/layoutTrainer', function()
-    {
-        $titreTrainer = Titre::find(4);
+//Newsletter
+Route::resource('newsletteradresses', NewsletteradressController::class)->middleware(['user']);
 
-          
-        $coaches = Coach::all();
-        foreach($coaches as $coach){
-            if($coach->user->role->nom === "coach_lead" ){
-                $coachLead = $coach;
-            }
-        }
-        if($coachLead !== null){
-            $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(3)->inRandomOrder()->get();
-        }else{
-           $coachesWithoutLead = $coaches; 
-        }
+//Map
+Route::resource('maps', MapController::class)->middleware(['coach_lead']);
 
-        return view('back.trainer.layoutTrainer',compact('titreTrainer','coaches','coachLead','coachesWithoutLead'));
-        
-    })->name('layoutTrainers');
+//Event
+Route::resource('events', EventController::class)->middleware(['coach_lead']);
+Route::get('back/layoutEvent', [EventController::class,'layoutEvent'])->middleware(['coach_lead'])->name('layoutEvents');
 
+//About
+Route::resource('abouts', AboutController::class)->middleware(['coach_lead']);
+Route::get('back/layoutAbout', [AboutController::class,'layoutAbout'])->middleware(['coach_lead'])->name('layoutAbouts');
 
-     Route::get('/layoutGallery', function()
-    {
-        
-        
-         $titreGallery = Titre::find(5);
-
-
-        $galleries = Gallerie::take(6)->inRandomOrder()->get();
-
-
-
-        return view('back.gallery.layoutGallery',compact('galleries','titreGallery'));
-        
-    })->name('layoutGalleries');
-
-     Route::get('/layoutPackage', function()
-    {
-        
-        
-        $titrePricing = Titre::find(7);
-
-
-
-
-        $packages = Package::all();
-
-
-
-
-        return view('back.packages.layoutPackage',compact('packages','titrePricing'));
-        
-    })->name('layoutPackage');
-     Route::get('/layoutFooter', function()
-    {
-        
-        $classes = Classe::take(2)->orderBy('date','ASC')->get();
-        
- 
-        $footerdatas = Footerdata::all();
-
-
-
-        return view('back.footer.layoutFooter',compact('classes','footerdatas'));
-        
-    })->name('layoutFooters');
-
-     Route::get('/layoutEvent', function()
-    {
-        
-        $titreEvent = Titre::find(6);
-        
-        
-        $events = Event::orderBy('selected','DESC')->take(1)->get();
-
-
-
-        return view('back.event.layoutEvent',compact('titreEvent','events'));
-        
-    })->name('layoutEvents');
-
-     Route::get('/layoutTestimony', function()
-    {
-        
-        $titreClient = Titre::find(8);
-        
-        
-        $testimonies = Testimony::all();
-
-
-
-        return view('back.testimony.layoutTestimony',compact('titreClient','testimonies'));
-        
-    })->name('layoutTestimonies');
-
-Route::resource('headers', HeaderController::class);
-Route::resource('titres', TitreController::class);
-Route::resource('coaches', CoachController::class);
-Route::resource('linksocials', LinksocialController::class);
-Route::post('linksocials/{linksocial}/{coachId}', [LinksocialController::class,'updateLink'])->name('updateLink');
-Route::resource('users', UserController::class);
-Route::resource('galleries', GallerieController::class);
-Route::resource('testimonies', TestimonyController::class);
-Route::resource('packages', PackageController::class);
-Route::resource('paiement', PaiementController::class);
-Route::resource('emailsendeds', EmailsendedController::class);
-Route::get('emailsendeds/{emailsended}/show2', [EmailsendedController::class,'show2'])->name('emailsendeds.show2');
-Route::get('emailsendeds/{emailsended}/newslettershow', [EmailsendedController::class,'newslettershow'])->name('emailsendeds.newslettershow');
-Route::get('emailsendeds/{emailsended}/contactshow', [EmailsendedController::class,'contactshow'])->name('emailsendeds.contactshow');
-Route::get('emailsendeds/{emailsended}/eventshow', [EmailsendedController::class,'eventshow'])->name('emailsendeds.eventshow');
-Route::resource('newsletteradresses', NewsletteradressController::class);
-Route::resource('maps', MapController::class);
-Route::resource('events', EventController::class);
-Route::resource('abouts', AboutController::class);
+//Footer
 Route::resource('footerdatas', FooterdataController::class);
+Route::get('back/layoutFooter',[ FooterdataController::class,'layoutFooter'])->middleware(['coach_lead'])->name('layoutFooters');
+
+//Formulaire
 Route::post('FormulaireContact',[FormulairecontactController::class,'store'])->name('storeContact');
-Route::get('FormulaireContact/adress',[FormulairecontactController::class,'storeadress'])->name('storeadress');
-Route::get('createadress',[FormulairecontactController::class,'createadress'])->name('createadress');
+
+
+
 // Route::get('backpgHome',[BackpgHomeController::class,'index'])->name('backpgHome');
 require __DIR__.'/auth.php';

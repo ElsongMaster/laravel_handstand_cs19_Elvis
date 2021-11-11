@@ -31,19 +31,7 @@ class FormulairecontactController extends Controller
         return redirect()->back();
     }
 
-    public function createadress(){
-
-        return view('front.ExampleHttpRequest');
-    }
 
 
-    public function storeadress(Request $rq){
 
-        $adress = $rq->adresse;
-
-        $response = Http::get('https://www.gps-coordinates.net/api/'.$adress);
-        dd($response);
-
-        return redirect()->back();
-    }
 }

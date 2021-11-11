@@ -5,7 +5,7 @@
                     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">
                         <div class="section-title">
                                {{-- <h2>{{strtolower(htmlspecialchars_decode((str_replace(['(',')'],["<span style='color:#00aeff;'>","</span>"],$titreSchedule->titre))))}}</h2> --}}
-                               <h2>{{$titreSchedule->titre}}</h2>
+                               <h2 class="titel">{{$titreSchedule->titre}}</h2>
                             <p>{{$titreSchedule->description}}</p>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
 
                                                         <h4>{{$jour->classe->nom}}</h4>
                                                         <p>{{$jour->classe->coach->user->name}}</p>
-                                                        <p>{{$jour->classe->horaire}}</p>
+                                                        <p>{{$jour->heure->creneau}}</p>
                                                         </td>
                                                     
                                                 @else

@@ -19,11 +19,13 @@ class CreateClassesTable extends Migration
             $table->string('nom');
             $table->json('package');
             $table->foreignId('coach_id')->constrained('coaches','id')->onDelete('cascade');
-            $table->string('horaire');
             $table->foreignId('categorie_id')->constrained('categories','id')->onDelete('cascade');
             $table->boolean('prioritaire');
+            $table->boolean('validate');
             $table->string('color')->nullable();
             $table->date('date');
+            $table->dropForeign('classes_coach_id_foreign');
+            $table->dropForeign('classes_categorie_id_foreign');
 
 
             $table->timestamps();

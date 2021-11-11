@@ -34,8 +34,8 @@
                         <form action="{{route('coaches.destroy', $coach->id)}}" method="POST" class="d-flex justify-content-center">
                             @method('DELETE')
                             @csrf
-                                <a href="{{route('coaches.edit',$coach->id)}}" class="btn btn-warning my-2 mr-2">EDIT</a>
-                                <button type="submit" class="btn btn-danger my-2">DELETE</button>
+                                <a href="{{route('coaches.edit',$coach->id)}}" class="btn btn-warning my-2 mr-2"><i class="fas fa-edit"></i></a>
+                                <button type="submit" class="btn btn-danger my-2"><i class="fas fa-trash-alt"></i></button>
                         </form>
             
                     </div>

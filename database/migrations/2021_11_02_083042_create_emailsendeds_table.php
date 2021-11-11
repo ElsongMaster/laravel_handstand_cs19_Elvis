@@ -22,6 +22,8 @@ class CreateEmailsendedsTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users','id');
             $table->boolean('lu');
             $table->json('texte')->nullable();
+            $table->dropForeign('emailsendeds_classe_id_foreign');
+            $table->dropForeign('emailsendeds_user_id_foreign');
             $table->timestamps();
         });
     }

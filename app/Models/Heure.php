@@ -19,4 +19,6 @@ class Heure extends Model
     public function semaine(){
         return $this->belongsTo(Semaine::class);
     }
+
+
 }

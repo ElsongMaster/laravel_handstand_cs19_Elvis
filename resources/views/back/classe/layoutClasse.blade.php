@@ -23,7 +23,6 @@
                 </div>
                 <div class="row"> 
                     @foreach ($classes as $classe)
-                        
                     <div class="col-md-4 col-sm-6 col-xs-12 mt-3 ">
                        @if (\Carbon\Carbon::now()->toDateString()>$classe->date)
                             <div class=" {{$classe->color ==="green"?'green':''}} {{$classe->color ==="orange"?'orange':''}}  {{$classe->color ==="red"?'red':''}}single-class"  hidden>
@@ -33,7 +32,13 @@
                            
                        @endif
                             <div class="single-img">
+                                @if (Storage::disk('public')->exists('img/class/'.$classe->image))
+                                
                                 <a href="{{asset('class')}}"><img src="{{asset('img/class/'.$classe->image)}}" alt="class"></a>
+                                @else
+                                <a href="{{asset('class')}}"><img src="{{$classe->image}}" alt="class"></a>
+                                
+                                @endif
                                 <div class="gallery-icon">
                                     <a class="image-popup" href="{{asset('img/class/'.$classe->image)}}">
                                         <i class="zmdi zmdi-zoom-in"></i>
@@ -44,11 +49,12 @@
                                 <h3><a href="{{route('class')}}">{{$classe->nom}}</a></h3>
                                 <ul>
                                     <li><i class="zmdi zmdi-face"></i>{{$classe->coach->user->name}}</li>
-                                    <li><i class="zmdi zmdi-alarm"></i>{{$classe->horaire}}</li>
+                                    <li><i class="zmdi zmdi-alarm"></i>{{$classe->jour->heure->creneau}}</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                    
                     @endforeach
 
                 </div>

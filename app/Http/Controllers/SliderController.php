@@ -41,7 +41,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.slider.create');
     }
 
     /**
@@ -52,7 +52,29 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "titre"=>['required'],
+            "soustitre"=>['required'],
+            "span"=>['required'],
+            "texte"=>['required'],
+            "btn"=>['required'],
+        ]);
+        $slider = new Slider;
+        if($request->file('image') !== null){
+            
+            Storage::disk('public')->delete('img/slider/'.$slider->image);
+            $slider->image = $request->file('image')->hashName();
+            $request->file('image')->storePublicly('img/slider/', 'public');
+        }
+        $slider->titre = $request->titre;
+        $slider->soustitre = $request->soustitre;
+        $slider->span = $request->span;
+        $slider->texte = $request->texte;
+        $slider->btn = $request->btn;
+        $slider->selected = false;
+        $slider->save();
+
+        return redirect()->route('sliders.index');
     }
 
     /**
@@ -74,7 +96,7 @@ class SliderController extends Controller
      */
     public function edit(Slider $slider)
     {
-        //
+        return view('back.slider.edit',compact('slider'));
     }
 
     /**
@@ -107,7 +129,7 @@ class SliderController extends Controller
         $slider->btn = $request->btn;
         $slider->save();
 
-        return redirect()->route('headers.index');
+        return redirect()->route('sliders.index');
     }
     /**
      * Update the specified resource in storage.
@@ -138,8 +160,8 @@ class SliderController extends Controller
      */
     public function destroy(Slider $slider)
     {
-        Storage::disk('public')->delete('img/slider/'.$slider->image);
+        // Storage::disk('public')->delete('img/slider/'.$slider->image);
         $slider->delete();
-        return redirect()->back();
+        return redirect()->back()->with('success','slider correctement supprimer');
     }
 }

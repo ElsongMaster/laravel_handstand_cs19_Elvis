@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->foreignId('package_id')->nullable()->constrained('packages','id')->onUpdate('cascade');
             $table->foreignId('role_id')->nullable()->constrained('roles','id')->onUpdate('cascade');
             $table->string('password');
+            $table->dropForeign('users_package_id_foreign');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -22,6 +22,7 @@
     </thead>
     <tbody>
         @foreach ($users as $user )
+        @can('view',$user)
             
         <tr>
             <th scope="row">{{$user->id}}</th>
@@ -31,6 +32,7 @@
                 <a href="{{route('users.show',$user->id)}}" class="btn btn-info"><i class="fas fa-eye"></i></a>
             </td>
         </tr>
+        @endcan  
         @endforeach
         </tbody>
     </table>

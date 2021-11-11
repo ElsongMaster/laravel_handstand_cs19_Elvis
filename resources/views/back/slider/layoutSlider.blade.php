@@ -42,8 +42,7 @@
                         <div class="slider-area" >	
                             <div class="slider-wrapper" >
                                 @foreach ($sliders as $slider )
-                                    
-                                <div class="single-slide " style="background-image: url('img/slider/{{$slider->image}}');" >
+                                <div class="single-slide " style="background-image: url({{asset('img/slider/'.$slider->image)}});" >
                                     <div class="slider-content">
                                         <div class="container">
                                             <div class="row">
@@ -51,7 +50,7 @@
                                                     <div class="text-content-wrapper">
                                                         <div class="text-content text-left">
                                                             <h5>{{$slider->titre}}</h5>
-                                                            <h1>{{explode(" ",$slider->soustitre)[0]}} <span>{{$slider->span}}</span> {{explode(" ",$slider->soustitre)[1]}} {{explode(" ",$slider->soustitre)[2]}}</h1>
+                                                            <h1 class="titel">{{$slider->soustitre}}</h1>
                                                             <p>{{$slider->texte}} </p>
                                                             <a class="banner-btn" href="{{route('gallery')}}" data-text="read more"><span>{{$slider->btn}}</span></a>
                                                         </div>
@@ -85,7 +84,46 @@
     <script src="{{asset('js/slick.min.js')}}"></script>  
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
+    <script>
+            var tabBtnCloses = Array.from(document.getElementsByClassName("close"));
+             console.log(tabBtnCloses);
+            tabBtnCloses.forEach((elt) => {
+                elt.addEventListener("click", () => {
+                    elt.parentNode.classList.add("hidden-msg");
+                });
+            });
 
+            function changeColorTitel(){
+                var $titels = Array.from(document.getElementsByClassName('titel'));
+                
+                 $titels.forEach(elt => {
+                    if(elt.innerText.includes('(') && elt.innerText.includes(')')){
+
+                        var index1 = elt.innerText.indexOf('(');
+                        var index2 = elt.innerText.indexOf(')');
+                        elt.innerText = elt.innerText.replace('(','')
+                        elt.innerText = elt.innerText.replace(')','')
+                        var str = elt.innerText.substr(index1,index2)
+                        elt.innerHTML = elt.innerText.substr(0,index1)+str.fontcolor("#5fc7ae")+elt.innerText.substr(index2)
+                        
+                    }
+                 });
+
+
+            }
+            changeColorTitel();
+    </script>
+        <style>
+            .hidden-msg{
+                display: none;
+
+            }
+
+            .colorTitle{
+                color: #5fc7ae;
+            }
+
+        </style>
 </body>
 </html>
 

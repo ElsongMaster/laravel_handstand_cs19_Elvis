@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">
                         <div class="section-title text-center">
-                            <h2>{{$titreClass->titre}}</h2>
+                            <h2 class="titel">{{$titreClass->titre}}</h2>
                             <p>{{$titreSchedule->desciption}}</p>
                         </div>  
                     </div>
@@ -32,7 +32,7 @@
                                 <h3><a href="{{route('classes.showClasse',$classe->id)}}">{{$classe->nom}}</a></h3>
                                 <ul>
                                     <li><i class="zmdi zmdi-face"></i>{{$classe->coach->user->name}}</li>
-                                    <li><i class="zmdi zmdi-alarm"></i>{{$classe->horaire}}</li>
+                                    <li><i class="zmdi zmdi-alarm"></i>{{$classe->jour->heure->creneau}}</li>
                                 </ul>
                             </div>
                         </div>

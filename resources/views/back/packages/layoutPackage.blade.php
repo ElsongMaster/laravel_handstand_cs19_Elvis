@@ -40,7 +40,7 @@
                                     <li>{{$package->li4}}</li>
 
                                 </ul>
-                                <a href="{{Auth::check()?route('paiement',$package->id):route('login2',$package->id)}}">{{$package->btn}}</a>
+                                <a href="{{Auth::check()?route('Validatepaiement',$package->id):route('login2',$package->id)}}">{{$package->btn}}</a>
                             </div>
                         </div>
                     </div>

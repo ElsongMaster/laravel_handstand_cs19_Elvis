@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
 use App\Models\Footerdata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,6 +17,24 @@ class FooterdataController extends Controller
     public function index()
     {
         //
+    }
+    /**
+     * Display a preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutFooter()
+    {
+        
+        $classes = Classe::take(2)->orderBy('date','ASC')->get();
+        
+ 
+        $footerdatas = Footerdata::all();
+
+
+
+        return view('back.footer.layoutFooter',compact('classes','footerdatas'));
+        
     }
 
     /**

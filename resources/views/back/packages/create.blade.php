@@ -26,7 +26,6 @@
 <h2 class="text-uppercase my-4">Information relative au package</h2>
 <form action="{{route('packages.store')}}" method="post"   enctype="multipart/form-data" >
     @csrf
-    @method('PUT')
 
 
     <div class="mb-3">
@@ -64,7 +63,7 @@
 
     <div class="mb-3">
         <label for="btn" class="form-label">btn</label>
-        <input type="text" value="{{old('btn')}}"  class="form-control" id="btn" name="btn" >
+        <input type="text" value="{{old('btn')}}"  class="form-control" id="" name="btn" >
     </div>
 
 

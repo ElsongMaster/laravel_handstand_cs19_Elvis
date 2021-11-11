@@ -7,23 +7,19 @@
                             <div class="newsletter-content section-title text-center">
                                 <h2>subscribe now for latest update!</h2> 
                                 <div class="newsletter-form">
-                                    {{-- <form action="{{route('newsletteradresses.store')}}" method="post" id="mc-form" class="mc-form fix" enctype="multipart/form-data">
+                                    <form action="{{route('newsletteradresses.store')}}" method="post"  class="mc-form fix" enctype="multipart/form-data">
                                         @csrf
-                                        <input id="mc-email" type="email" name="email" placeholder="Enter Your E-mail ID">
-                                        <button id="mc-submit" type="submit" class="default-btn" data-text="submit" ><span >submit</span></button> 
-                                    </form> --}}
-                                    <form action="{{route('newsletteradresses.store')}}" method="POST">
-                                        @csrf
-                                    <input type="text" name="email">
-                                    <button type="submit" class="btn btn-secondary">submit</button>
-                                    @include('back.partials.flash-message')
+                                        <input  type="email" name="email" placeholder="Enter Your E-mail ID">
+                                        <button type="submit" class="default-btn"  >submit</button> 
+                                        @include('back.partials.flash-message')
                                     </form>
+
                                     <!-- mailchimp-alerts Start -->
-                                    <div class="mailchimp-alerts">
+                                    {{-- <div class="mailchimp-alerts">
                                         <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
                                         <div class="mailchimp-success"></div><!-- mailchimp-success end -->
                                         <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                                    </div>
+                                    </div> --}}
                                     <!-- mailchimp-alerts end -->
                                 </div>
                             </div>

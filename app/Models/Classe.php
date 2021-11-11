@@ -31,6 +31,10 @@ class Classe extends Model
         return $this->hasOne(Package::class);
     }
 
+    public function jour(){
+        return $this->hasOne(Jour::class);
+    }
+
     public function emailsended(){
         return $this->hasOne(Emailsended::class);
     }

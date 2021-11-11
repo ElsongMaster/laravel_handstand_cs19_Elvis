@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-12">
                         <div class="section-title text-center">
-                            <h2><span class="span">{{explode(" ",$titrePricing->titre)[0]}}</span> {{explode(" ",$titrePricing->titre)[1]}}</h2>
+                            <h2 class="titel"><span class="span">{{explode(" ",$titrePricing->titre)[0]}}</span> {{explode(" ",$titrePricing->titre)[1]}}</h2>
                             <p>{{$titrePricing->description}}</p>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                                     <li>{{$package->li4}}</li>
 
                                 </ul>
-                                <a href="{{Auth::check()?route('paiement',$package->id):route('login2',$package->id)}}">{{$package->btn}}</a>
+                                <a href="{{Auth::check()?route('Validatepaiement',$package->id):route('login2',$package->id)}}">{{$package->btn}}</a>
                             </div>
                         </div>
                     </div>

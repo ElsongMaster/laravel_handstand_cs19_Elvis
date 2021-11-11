@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\ClasseUser::factory(15)->create();
         \App\Models\ClasseUserYellow::factory(10)->create();
         \App\Models\ClasseUserGreen::factory(6)->create();
+        \App\Models\ClasseTag::factory(8)->create();
         // \App\Models\Jour::factory(64)->create();
 
 

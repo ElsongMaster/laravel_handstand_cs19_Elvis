@@ -19,15 +19,28 @@
 
     <h1 class="fs-4 mt-5">Demande utilisateur</h1>
     <div class="info-sender">
-        <p>Nom utilisateur: <span>{{$emailsended->texte[0]}}</span></p>
+        <p class="my-1" >Nom utilisateur: <span>{{$emailsended->texte[0]}}</span></p>
         <p>Adresse mail: <span>{{$emailsended->texte[1]}}</span></p>
     </div>
 
-    <h1>Sujet de la demande:</h1>
+    <h1 class="my-1" >Sujet de la demande:</h1>
 
-    <p>{{$emailsended->texte[2]}}</p>
+    <p class="mt-3" id="text-mail">{{$emailsended->texte[2]}}</p>
 
 </div>
+<script>
+    var text = document.getElementById('text-mail');
+    var tabStr = text.innerText.split('');
+    if(text.innerText.length>30){
+        text.innerHTML = ""
+        for(var i =0;i<tabStr.length;i++){
+            text.innerHTML += tabStr[i];
+            if(i>0 && i%60 ===0){
+                text.innerHTML += '<br\>';
+            }
+        }
+    }
 
+</script>
 
 @endsection

@@ -31,7 +31,7 @@
                                         <h3><a href="{{route('class')}}">{{$classe->nom}}</a></h3>
                                         <ul>
                                             <li class="p-0 m-0"><i class="zmdi zmdi-face"></i>{{$classe->coach->user->name}}</li>
-                                            <li><i class="zmdi zmdi-alarm"></i>{{$classe->horaire}}</li>
+                                            <li><i class="zmdi zmdi-alarm"></i>{{$classe->jour->heure->creneau}}</li>
                                         </ul>
                                     </div>
                                 </div>

@@ -27,6 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('user_create');
         return view('back.user.create');
     }
 
@@ -38,6 +39,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('user_create');
+
         $request->validate([
             "name"=>['required'],
             "email"=>['required'],
@@ -63,6 +66,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view',$user);
         return view('back.user.show',compact('user'));
 
     }
@@ -75,6 +79,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('user_data',$user);
         return view('back.user.edit',compact('user'));
     }
 
@@ -87,6 +92,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('update',$user);
         $request->validate([
             "name"=>['required'],
             "email"=>['required'],
@@ -112,6 +118,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete',$user);
+        $user->delete();
         return redirect()->back()->with('success',"l'utilisateur a bien été supprimé");
     }
 }

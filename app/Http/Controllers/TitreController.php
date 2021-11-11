@@ -14,7 +14,8 @@ class TitreController extends Controller
      */
     public function index()
     {
-        //
+        $titres = Titre::all();
+        return view('back.titre.allTitre',compact('titres'));
     }
 
     /**
@@ -92,6 +93,6 @@ class TitreController extends Controller
         $titre->delete();
 
 
-        return redirect()->route('back');
+        return redirect()->route('titres.index')->with('success','titre correctement supprimé');
     }
 }

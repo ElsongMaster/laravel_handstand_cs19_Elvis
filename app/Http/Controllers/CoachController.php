@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coach;
+use App\Models\Titre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,6 +20,33 @@ class CoachController extends Controller
 
 
         return view('back.trainer.allTrainer',compact('coaches'));
+    }
+
+    
+    /**
+     * Display a preview of the resource index.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function layoutTrainer()
+    {
+        $titreTrainer = Titre::find(4);
+
+          
+        $coaches = Coach::all();
+        foreach($coaches as $coach){
+            if($coach->user->role->nom === "coach_lead" ){
+                $coachLead = $coach;
+            }
+        }
+        if($coachLead !== null){
+            $coachesWithoutLead = Coach::where('id','!=',$coachLead->id)->take(3)->inRandomOrder()->get();
+        }else{
+           $coachesWithoutLead = $coaches; 
+        }
+
+        return view('back.trainer.layoutTrainer',compact('titreTrainer','coaches','coachLead','coachesWithoutLead'));
+        
     }
 
     /**

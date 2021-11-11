@@ -23,7 +23,7 @@
 
  <h1 class="text-center my-3"> Update Data Slider</h1>
 
-<form action="{{route('headers.update',$header->id)}}" method="post"   enctype="multipart/form-data" >
+<form action="{{route('sliders.update',$slider->id)}}" method="post"   enctype="multipart/form-data" >
     @csrf
     @method('PUT')
 
@@ -34,23 +34,23 @@
 </div>
 <div class="mb-3">
     <label for="titre" class="form-label">titre</label>
-    <input type="text" value = "{{$header->titre}}"   class="form-control" id="titre" name="titre" >
+    <input type="text" value = "{{$slider->titre}}"   class="form-control" id="titre" name="titre" >
 </div>
 <div class="mb-3">
     <label for="soustitre" class="form-label">Sous titre</label>
-    <input type="text" value = "{{$header->soustitre}}"   class="form-control" id="soustitre" name="soustitre" >
+    <input type="text" value = "{{$slider->soustitre}}"   class="form-control" id="soustitre" name="soustitre" >
 </div>
 <div class="mb-3">
     <label for="span" class="form-label">Span</label>
-    <input type="text" value = "{{$header->span}}"   class="form-control" id="span" name="span" >
+    <input type="text" value = "{{$slider->span}}"   class="form-control" id="span" name="span" >
 </div>
 <div class="mb-3">
     <label for="texte" class="form-label">Texte</label>
-    <input type="text" value = "{{$header->texte}}"   class="form-control" id="texte" name="texte" >
+    <input type="text" value = "{{$slider->texte}}"   class="form-control" id="texte" name="texte" >
 </div>
 <div class="mb-3">
     <label for="btn" class="form-label">Btn</label>
-    <input type="text" value = "{{$header->btn}}"   class="form-control" id="btn" name="btn" >
+    <input type="text" value = "{{$slider->btn}}"   class="form-control" id="btn" name="btn" >
 </div>
 
 
